@@ -1,11 +1,8 @@
 import './App.css';
-import logo from './images/logo.svg';
-
+import Main from './containers/Main.js';
 function App() {
   return (
-    <div align = "center">
-        <img src = {logo} alt = "logo" width = "50%" height = "50%"/>
-    </div>
+    <Main />
   );
 }
 
