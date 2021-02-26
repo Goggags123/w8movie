@@ -75,7 +75,7 @@ export default class Movie extends Component {
   render() {
     return (
       <div className="movie">
-        <div className="movieBg" />
+        {/* <div className="movieBg" /> */}
 
         <div id="title" className="head">
           Movie

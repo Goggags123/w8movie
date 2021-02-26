@@ -15,33 +15,16 @@ button {
 
 body {
   min-height: 100vh;
-  min-width: 100vw;
-  overflow: scroll;
+  width: 100vw;
+  /* overflow: scroll; */
+  overflow-x: hidden;
+  /* height: 100%; */
+  background: -webkit-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
+  background: -moz-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
+  background: -ms-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
+  background: -o-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
   background: linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
-}
-
-.diagram-component {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.49) 0%, rgba(255, 255, 255, 0.07) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-sizing: border-box;
-  backdrop-filter: blur(30rem);
-  border-radius: 0px 0px 30px 30px;
-}
-
-.zoom {
-  cursor: pointer;
-}
-
-.group {
-  display: flex;
-  padding: 2% 0px 0px 0px;
-  flex-direction: column;
-  width: max-content;
-  background: #A0204C;
-  border-radius: 10%;
-  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-attachment: fixed;
 }
 
 .ellipse1 {
@@ -52,8 +35,8 @@ body {
   top: -15vw;
   left: -10vw;
   background: rgba(160, 32, 76, 0.8);
-  filter: blur(7rem);
   -webkit-filter: blur(7rem);
+  filter: blur(7rem);
   z-index: -1;
 }
 
@@ -65,8 +48,8 @@ body {
   top: 10vw;
   left: -15%;
   background: rgba(255, 108, 0, 0.8);
-  filter: blur(5rem);
   -webkit-filter: blur(5rem);
+  filter: blur(5rem);
   z-index: -2;
 }
 
@@ -78,8 +61,8 @@ body {
   top: 60vh;
   right: 10vw;
   background: #A0204C;
-  filter: blur(3rem);
   -webkit-filter: blur(3rem);
+  filter: blur(3rem);
   z-index: -1;
 
 }
@@ -106,12 +89,29 @@ p.title {
   font-size: 1.05rem;
 }
 
-.color {
-  width: 35%;
-  height: 1rem;
-  display: flex;
+p.text {
+  color: white;
+  font-style: normal;
+  font-size: 1rem;
+}
+div.dfa {
+  padding: 1% 0 0 0;
+  width: 68%;
+}
+div.container {
+  width: 100%;
+  color:white;
+  background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.49) 0%, rgba(255, 255, 255, 0.07) 100%);
+  border: 0.01rem solid rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+  border-radius: 1rem;
+  backdrop-filter: blur(3rem);
+  padding: 0.75% 0 0.75% 1%;
+  margin: 0.5% 0 0 0 ;
 }
 
-div.color div {
-  flex-grow: 1;
+div.layout {
+  display: flex;
+  justify-content: space-around;
 }
+

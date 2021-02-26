@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
+import "./DFA.css";
 
-import "../App.css";
 function initDiagram() {
 	const $ = go.GraphObject.make;
 	// set your license key here before creating the diagram: go.Diagram.licenseKey = "...";
@@ -29,28 +29,38 @@ function initDiagram() {
 		$(
 			go.Shape,
 			"Circle",
-			{ name: "SHAPE", fill: "white", strokeWidth: 0, width: 70, height: 70 },
+			{ name: "SHAPE", fill: "#A64568",stroke:"white", strokeWidth: 3, width: 70, height: 70 },
 			// Shape.fill is bound to Node.data.color
 			new go.Binding("fill", "color")
 		),
 		$(
-			go.TextBlock, // some room around the text
+			go.TextBlock,
+			{
+				stroke: "white",
+				font: "Normal 0.75rem Roboto",
+				textAlign: "center",
+			},
 			new go.Binding("text", "key").makeTwoWay()
 		)
 	);
 
 	diagram.linkTemplate = $(
 		go.Link,
-		{ curve: go.Link.Bezier },
-		$(go.Shape),
-		$(go.Shape, { toArrow: "Standard" }),
+		{ routing: go.Link.Orthogonal },
+		$(go.Shape,{stroke:"white" , strokeWidth: 3}),
+		$(go.Shape, { toArrow: "OpenTriangle",stroke:"white", strokeWidth: 3 }),
 		$(
-			go.TextBlock,
-			{
-				segmentOffset: new go.Point(0, -10),
-				segmentOrientation: go.Link.OrientUpright,
-			},
-			new go.Binding("text", "label")
+			go.Panel,
+			"Auto",
+			$(go.Shape, "Rectangle", { fill: null, stroke: null }),
+			$(go.TextBlock, {font: "Normal 0.75rem Roboto",stroke:"white"}, new go.Binding("text", "label"))
+			// $(
+			// 	go.TextBlock,
+			// 	{
+			// 		segmentOffset: new go.Point(0, -10),
+			// 		segmentOrientation: go.Link.OrientUpright,
+			// 	},
+			// 	new go.Binding("text", "label")
 		)
 	);
 
@@ -64,60 +74,72 @@ function initDiagram() {
 
 function DFA() {
 	let column1_position = -100;
-	let BeautyAndTheBeast = "BeautyAndTheBeast";
+	let BeautyAndTheBeast = "Beauty\nAnd\nTheBeast";
 	let Hackers = "Hackers";
-	let HarryPotter = "HarryPotter";
+	let HarryPotter = "Harry\nPotter";
 	return (
 		<Fragment>
 			<ReactDiagram
 				initDiagram={initDiagram}
 				divClassName="diagram-component"
 				nodeDataArray={[
-					{ key: "Start", color: "lightblue", loc: "0 0" },
-					{ key: "Confirm", color: "orange", loc: "0 50" },
-					{ key: Hackers, color: "lightgreen", loc: `200 ${column1_position}` },
+					{ key: "Start", color: "#FF6C00", loc: "-400 0" },
+					{ key: "Confirm", color: "#FF6C00", loc: "0 50" },
+					{ key: Hackers, loc: `200 ${column1_position}` },
 					{
 						key: BeautyAndTheBeast,
-						color: "lightgreen",
-						loc: `200 ${column1_position + 100}`,
+						loc: `-200 ${column1_position + 100}`,
 					},
 					{
 						key: HarryPotter,
-						color: "lightgreen",
-						loc: `200 ${column1_position + 200}`,
+						loc: `-200 ${column1_position + 200}`,
 					},
 					{
-						key: "d",
-						color: "lightgreen",
-						loc: `200 ${column1_position + 300}`,
+						key: "Trap",
+						color: "red",
+						loc: `-200 ${column1_position + 300}`,
 					},
-					{ key: "Popcorn", color: "pink", loc: "150 150" },
-					{ key: "Drinks", color: "pink", loc: "150 150" },
+					{ key: "Popcorn", loc: "150 150" },
+					{ key: "Drinks", loc: "150 150" },
 				]}
 				linkDataArray={[
 					{ from: "Start", to: "Start", label: "Start" },
 					{ from: "Start", to: Hackers, label: Hackers },
 					{ from: "Start", to: BeautyAndTheBeast, label: BeautyAndTheBeast },
+					{ from: "Start", to: HarryPotter, label: HarryPotter },
+
 					{ from: Hackers, to: BeautyAndTheBeast, label: BeautyAndTheBeast },
+					{ from: Hackers, to: HarryPotter, label: HarryPotter },
 					{ from: Hackers, to: Hackers, label: Hackers },
 					{ from: BeautyAndTheBeast, to: Hackers, label: Hackers },
+					{ from: BeautyAndTheBeast, to: HarryPotter, label: HarryPotter },
 					{
 						from: BeautyAndTheBeast,
 						to: BeautyAndTheBeast,
 						label: BeautyAndTheBeast,
 					},
 					{
-						from: BeautyAndTheBeast,
+						from: HarryPotter,
 						to: BeautyAndTheBeast,
 						label: BeautyAndTheBeast,
+					},
+					{
+						from: HarryPotter,
+						to: Hackers,
+						label: Hackers,
+					},
+					{
+						from: HarryPotter,
+						to: HarryPotter,
+						label: HarryPotter,
 					},
 				]}
 			/>
-			<div className="group">
+			{/* <div className="group">
 				<i className="fa fa-plus fa-fw zoom" cal></i>
-                <hr></hr>
+				<hr></hr>
 				<i className="fa fa-minus fa-fw zoom"></i>
-			</div>
+			</div> */}
 		</Fragment>
 	);
 }
