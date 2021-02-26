@@ -16,7 +16,7 @@ button {
 body {
   min-height: 100vh;
   min-width: 100vw;
-  overflow: hidden;
+  overflow: scroll;
   background: linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
 }
 
@@ -46,40 +46,40 @@ body {
 
 .ellipse1 {
   position: absolute;
-  width: 25vw;
-  height: 25vw;
+  width: 40vw;
+  height: 40vw;
   border-radius: 100%;
-  top: -15%;
-  left: -5%;
+  top: -15vw;
+  left: -10vw;
   background: rgba(160, 32, 76, 0.8);
-  filter: blur(5rem);
-  -webkit-filter: blur(5rem);
+  filter: blur(7rem);
+  -webkit-filter: blur(7rem);
   z-index: -1;
 }
 
 .ellipse2 {
   position: absolute;
-  width: 15vw;
-  height: 15vw;
+  width: 25vw;
+  height: 25vw;
   border-radius: 100%;
-  top: 15%;
-  left: -10%;
+  top: 10vw;
+  left: -15%;
   background: rgba(255, 108, 0, 0.8);
-  filter: blur(4rem);
-  -webkit-filter: blur(4rem);
+  filter: blur(5rem);
+  -webkit-filter: blur(5rem);
   z-index: -2;
 }
 
 .ellipse3 {
   position: absolute;
-  width: 20vw;
-  height: 20vw;
+  width: 30vw;
+  height: 30vw;
   border-radius: 100%;
-  top: 70%;
-  left: 50%;
+  top: 60vh;
+  right: 10vw;
   background: #A0204C;
-  filter: blur(2.5rem);
-  -webkit-filter: blur(2.5rem);
+  filter: blur(3rem);
+  -webkit-filter: blur(3rem);
   z-index: -1;
 
 }

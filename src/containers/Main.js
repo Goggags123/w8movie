@@ -10,10 +10,18 @@ export default function Main() {
       <Navbar />
       <Ellipse className="ellipse1" />
       <Ellipse className="ellipse2" />
-      <Ellipse className="ellipse3" />
-	  
+      <Ellipse className="ellipse3" />    
       <Colortab />
-      <Movie />
+
+      <div style={{
+        position: "absolute",
+        top: "11%",
+        bottom: "2%",
+        width:"calc(100% - (8% / 3 * 2))",
+        left: "calc(8% / 3)",
+        backgroundColor:""}}>
+        <Movie />
+      </div>
     </div>
   );
 }
