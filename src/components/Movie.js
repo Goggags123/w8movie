@@ -46,6 +46,15 @@ const movieinfo = [
     date: "March 4, 2021",
     description: "Leading actor : someone",
   },
+  {
+    name: "Hacker",
+    picture:
+      "https://www.themoviedb.org/t/p/w500/sJKcpT5LRuCdGpWm29yH2bMWqT0.jpg",
+    genre: "Adventure, Sci-fi",
+    duration: "110 minutes",
+    date: "March 4, 2021",
+    description: "Leading actor : someone",
+  }
 ];
 const showtime = {
   time1: "12:00",
@@ -60,6 +69,10 @@ const sound = {
   thai: "Thai Audio",
   eng: "English Subtitle",
 };
+
+
+
+
 export default class Movie extends Component {
   constructor(props) {
     super(props);
@@ -72,10 +85,36 @@ export default class Movie extends Component {
       movie: 1,
     };
   }
+
+  goRight = () => {
+    if (this.state.movie<6)
+    {
+      this.setState({movie: this.state.movie+1});
+      document.getElementById('scroller').scrollLeft+=50;
+    }
+
+  };
+
+  goLeft = () => {
+    if (this.state.movie>1)
+    {
+      this.setState({movie: this.state.movie-1});
+      document.getElementById('scroller').scrollLeft-=50;
+    }
+  };
+
+  movieSelected = (i) => {
+    let total=(i+1 - this.state.movie) * 50;
+    console.log(total)
+    document.getElementById('scroller').scrollLeft+=total;
+    this.setState({ movie: i+1 })
+  }
+
   render() {
+    
+    console.log(this.state.movie)
     return (
       <div className="movie">
-        {/* <div className="movieBg" /> */}
 
         <div id="title" className="head">
           Movie
@@ -104,19 +143,31 @@ export default class Movie extends Component {
             </div>
           </div>
         </div>
-
-        <div className="otherMovie">
+        
+        <div className="left-right-fixer">
+          <a id="left" onClick={this.goLeft}></a>
+          <a id="right" onClick={this.goRight}></a>
+        <div id="scroller" className="otherMovie">
+          <div id="container">
+          
+          <div className="empty1"/>
+          <div className="empty2"/>
           {movieinfo.map((movie, i) => {
             return (
               <div
                 key={i}
+                id={"movie"+(i+1)}
                 className={this.state.movie == i + 1 ? "mv-Y" : "mv-N"}
-                onClick={() => this.setState({ movie: i+1 })}
+                onClick={()=>this.movieSelected(i)}
               >
                 <img src={movie.picture} />
               </div>
             );
           })}
+          <div className="empty2"/>
+          <div className="empty1"/>
+          </div>
+        </div>
         </div>
 
         <div className="zone">

@@ -1,31 +1,33 @@
 :root {
     --movie-width: 290px;
-    --movie-height: calc(var(--movie-width)*92/44);
+    --movie-height: calc(var(--movie-width)*95/44);
     --head-font: calc(var(--movie-width)*20/440);
+
+    --selector-color: #731A39;
+    --selector-border: white;
+
+    --selector-hover-color: #731A39;
+    --selector-hover-border: rgb(255, 255, 255);
+
+    --selected-color: #A0204C;
+    --selected-border:white;
 }
 
 .movie {
-    /* width: calc(100% / 3);
-    height: 100%; */
-    min-width: var(--movie-width);
-    min-height: var(--movie-height);
+    position: relative;
+    z-index: 2;
+    width: var(--movie-width);
+    height: var(--movie-height);
     display: flex;
     flex-direction: column;
     align-items: center;    
     font-family: Roboto;
     font-style: normal; 
     color: white;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(100.04% 253.78% at 0% 0%, 
-        rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 100%);        
-    border-radius: calc(var(--movie-height)*30/920);
-    box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.25);
-    backdrop-filter: blur(30px);
 }
 
-/* .movieBg {
+.movie::after {
+    content: "";
     position: absolute;
     z-index: -3;
     width: 100%;
@@ -33,11 +35,11 @@
     background: 
         radial-gradient(100.04% 253.78% at 0% 0%, 
         rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 100%);        
-    border-radius: calc(var(--movie-height)*30/920);
+    border-radius: calc(var(--movie-width)*30/440);
     box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.25);
     backdrop-filter: blur(30px);
     
-} */
+}
 
 #title {
     margin: calc(var(--movie-width) * 20 / 440) 0 calc(var(--movie-width) * 10 / 440) 0;
@@ -58,9 +60,9 @@
 
 
 .movieInfo {
-    height: calc(var(--movie-height) * 280 / 920);
+    height: calc(var(--movie-width) * 280 / 440);
     width: calc(var(--movie-width) * 400 / 440);
-    border-radius: calc(var(--movie-height)*20/920);
+    border-radius: calc(var(--movie-width)*20/440);
     overflow: hidden;
     box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.15);
     background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
@@ -105,13 +107,51 @@
     margin-right: calc(var(--movie-width) * 5 / 440);
 }
 
-.otherMovie {
-    /* box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.5); */
-    width: calc(var(--movie-width) * 400 / 440);
+#container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: calc(var(--movie-width) * 775 / 440);
+    /* padding: calc(var(--movie-width) * 5 / 440); */
+}
+
+
+.otherMovie {
+    /* box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.5); */
+    width: calc(var(--movie-width) * 400 / 440);    
     margin: calc(var(--movie-width) * 10 / 440) 0;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+
+.otherMovie::-webkit-scrollbar {
+    display: none;
+  }
+
+
+#right, #left {
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    width: calc(var(--movie-width) * 30 / 440);
+    height: calc(var(--movie-width) * 30 / 440);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+#left {    
+    left:0;
+    top: calc(50% - var(--movie-width) * 15 / 440);
+}
+
+#right {
+    right: 0;
+    top: calc(50% - var(--movie-width) * 15 / 440);
+}
+
+.left-right-fixer {    
+    position: relative;
 }
 
 @keyframes lastMovie {
@@ -119,10 +159,11 @@
     100% {box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0);filter: brightness(0.6);}
   }
 
+
 .otherMovie .mv-N {
-    height: calc(var(--movie-height) * 90 / 920);
-    width: calc(var(--movie-height) * 90 / 920 * 65 / 90);
-    border-radius: calc(var(--movie-height)*15/920);
+    height: calc(var(--movie-width) * 90 / 440);
+    width: calc(var(--movie-width) * 65 / 440);
+    border-radius: calc(var(--movie-width)*15/440);
     overflow: hidden;
     /* box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5); */
     cursor: pointer;
@@ -149,9 +190,9 @@
   }
 
 .otherMovie .mv-Y {
-    height: calc(var(--movie-height) * 90 / 920);
-    width: calc(var(--movie-height) * 90 / 920 * 65 / 90);
-    border-radius: calc(var(--movie-height)*15/920);
+    height: calc(var(--movie-width) * 90 / 440);
+    width: calc(var(--movie-width) * 65 / 440);
+    border-radius: calc(var(--movie-width)*15/440);
     overflow: hidden;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.5);
     filter: brightness(1);
@@ -160,11 +201,18 @@
 }
 
 
-
 .otherMovie img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.otherMovie .empty1 {
+    width: calc(var(--movie-width) * 82.5 / 440);
+}
+
+.otherMovie .empty2 {
+    width: calc(var(--movie-width) * 65 / 440);
 }
 
 .function {
@@ -184,14 +232,14 @@
 }
 
 @keyframes lastButton {
-    0% {box-shadow: 0 0 0 1px #ffffff;}
-    100% {box-shadow: 0 0 0 0px #ffffff;}
+    0% {box-shadow: 0 0 0 1px var(--selector-hover-border);}
+    100% {box-shadow: 0 0 0 0px var(--selected-border);}
 }
 
 .function .button-N {
     font-size: calc(var(--movie-width) * 18 / 440);
     color: white;
-    background-color: #731A39;    
+    background-color: var(--selector-color);    
     padding: 
         calc(var(--movie-width) * 8 / 440) 
         calc(var(--movie-width) * 30 / 440);
@@ -202,36 +250,35 @@
 }
 
 @keyframes buttonHover {
-    0%   {box-shadow: 0 0 0 0px #ffffff;}
-    100% {box-shadow: 0 0 0 1px #ffffff;}
+    0%   {box-shadow: 0 0 0 0px var(--selector--border);}
+    100% {box-shadow: 0 0 0 1px var(--selector-hover-border);}
   }
 
 .function .button-N:hover {
-    /* background: #A0204C; */
-    box-shadow: 0 0 0 1px #ffffff;
+    box-shadow: 0 0 0 1px var(--selector-hover-border);
     animation: buttonHover;
     animation-duration: 0.25s;
 
 }
 
 @keyframes nextButton {
-    0%   {background: #A0204C;}
-    100% {background: #A0204C;}
+    0%   {background: var(--selector-hover-color);}
+    100% {background: var(--selected-color);}
   }
 
 .function .button-Y {
     font-size: calc(var(--movie-width) * 18 / 440);
     color: white;
-    background: #A0204C;
+    background: var(--selected-color);
     padding: 
         calc(var(--movie-width) * 8 / 440) 
         calc(var(--movie-width) * 30 / 440);
-    box-shadow: 0 0 0 1px #A02;
+    box-shadow: 0 0 0 1px var(--selected-border);
     border-radius: calc(var(--movie-width) * 40 / 440);
-    box-shadow: 1px 1px 0.5px 1px #74272770;
+    box-shadow: 1px 1px 0.5px 1px var(--selected-border);
     animation: nextButton;
     animation-duration: 0.25s;
-    box-shadow: 0 0 0 1px #ffffff;
+    box-shadow: 0 0 0 1px var(--selected-border);
 }
 
 .add-on {

@@ -5,20 +5,20 @@ import Navbar from "../components/Navbar";
 import Movie from "../components/Movie";
 export default function Main() {
 	return (
-		<div>
+		<div className="main">
 			<Navbar />
 			<Ellipse className="ellipse1" />
 			<Ellipse className="ellipse2" />
 			<Ellipse className="ellipse3" />
-			<div className="layout">
-				<div className="dfa">
-					<p className="text">Output</p>
-					<div className="container">dfsdf</div>
-					<DFA />
-					<p className="text">Input</p>
-					<div className="container">dfsdf</div>
-				</div>
-				<div style={{margin: "1% 1% 0 0"}}>
+			<div className="allContainer">
+				<div className="layout">
+					<div className="dfa">
+						<p className="text">Output</p>
+						<div className="container">dfsdf</div>
+						<DFA />
+						<p className="text">Input</p>
+						<div className="container">dfsdf</div>
+					</div>
 					<Movie />
 				</div>
 			</div>
