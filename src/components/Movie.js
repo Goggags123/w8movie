@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import "../components/Movie.css";
+import drink from "../images/drink.png";
+import popcorn from "../images/popcorn.png"
+import hacker from "../images/hacker.jpg"
+import beauty from "../images/beauty_and_the_beast.jpg"
+import harry from "../images/harry.jpg"
+import assasin from "../images/assasin.jpg"
+import parasite from "../images/parasite.jpg"
+import mulan from "../images/mulan.png"
 const movieinfo = [
   {
     name: "Hacker",
-    picture:
-      "https://www.themoviedb.org/t/p/w500/sJKcpT5LRuCdGpWm29yH2bMWqT0.jpg",
+    picture: hacker,
     genre: "Adventure, Sci-fi",
     duration: "110 minutes",
     date: "March 4, 2021",
@@ -12,46 +19,41 @@ const movieinfo = [
   },
   {
     name: "Beauty and the Beast",
-    picture:
-      "https://upload.wikimedia.org/wikipedia/en/d/d6/Beauty_and_the_Beast_2017_poster.jpg",
-    genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
+    picture: beauty,
+    genre: "Lomantic, Fantasy",
+    duration: "129 minutes",
     date: "March 4, 2021",
     description: "Leading actor : someone",
   },
   {
     name: "Harry Potter",
-    picture:
-      "https://m.media-amazon.com/images/M/MV5BNjQ3NWNlNmQtMTE5ZS00MDdmLTlkZjUtZTBlM2UxMGFiMTU3XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_UY1200_CR90,0,630,1200_AL_.jpg",
-    genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
+    picture: harry,
+    genre: "Fantasy",
+    duration: "129 minutes",
     date: "March 4, 2021",
     description: "Leading actor : someone",
   },
   {
     name: "Assasin",
-    picture:
-      "https://m.media-amazon.com/images/M/MV5BNTczMTk3MjMyOV5BMl5BanBnXkFtZTgwMjA2Mjk4NjE@._V1_.jpg",
+    picture: assasin,
     genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
+    duration: "105 minutes",
+    date: "March 4, 2021",
+    description: "Leading actor : someone",
+  },
+  {
+    name: "Mulan",
+    picture: mulan,
+    genre: "Adventure, Drama",
+    duration: "115 minutes",
     date: "March 4, 2021",
     description: "Leading actor : someone",
   },
   {
     name: "Parasite",
-    picture:
-      "https://images.squarespace-cdn.com/content/511eea22e4b06642027a9a99/1579282606685-G5P026IF3J5092X1IZWM/Parasite+2019.jpg?content-type=image%2Fjpeg",
-    genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
-    date: "March 4, 2021",
-    description: "Leading actor : someone",
-  },
-  {
-    name: "Hacker",
-    picture:
-      "https://www.themoviedb.org/t/p/w500/sJKcpT5LRuCdGpWm29yH2bMWqT0.jpg",
-    genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
+    picture: parasite,
+    genre: "Comedy",
+    duration: "132 minutes",
     date: "March 4, 2021",
     description: "Leading actor : someone",
   }
@@ -237,10 +239,14 @@ export default class Movie extends Component {
             <div className="head">Add-on</div>
             <div className="selector">
               <div className="button-N" style={{width:"50%",margin:"5px"}}>
-                <img />
+                <div style={{marginTop:"10px",width:"100%",display:"flex",justifyContent:"center"}}>
+                  <img src={popcorn} height="50px" />
+                </div>
               </div>
               <div className="button-N" style={{width:"50%",margin:"5px"}}>
-                <img />
+                <div style={{marginTop:"10px",width:"100%",display:"flex",justifyContent:"center"}}>
+                  <img src={drink} height="50px" />
+                </div>
               </div>
             </div>
           </div>

@@ -275,7 +275,7 @@
     box-shadow: 0 0 0 1px var(--selector-hover-border);
     animation: buttonHover;
     animation-duration: 0.25s;
-
+    opacity: 0.85;
 }
 
 @keyframes nextButton {
