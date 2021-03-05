@@ -126,20 +126,22 @@ export default class Movie extends Component {
           />
           <div className="movieTextInfo">
             <div className="name">{movieinfo[this.state.movie - 1].name}</div>
-            <div className="info">
-              <div className="icon" />
-              {movieinfo[this.state.movie - 1].genre}
-            </div>
-            <div className="info">
-              <div className="icon" />
-              {movieinfo[this.state.movie - 1].duration}
-            </div>
-            <div className="info">
-              <div className="icon" />
-              {movieinfo[this.state.movie - 1].date}
-            </div>
-            <div className="info">
-              {movieinfo[this.state.movie - 1].description}
+            <div className="wrapinfo">
+              <div className="info">
+                <div className="icon" />
+                {movieinfo[this.state.movie - 1].genre}
+              </div>
+              <div className="info">
+                <div className="icon" />
+                {movieinfo[this.state.movie - 1].duration}
+              </div>
+              <div className="info">
+                <div className="icon" />
+                {movieinfo[this.state.movie - 1].date}
+              </div>
+              <div className="info">
+                {movieinfo[this.state.movie - 1].description}
+              </div>
             </div>
           </div>
         </div>
@@ -174,19 +176,19 @@ export default class Movie extends Component {
           <div className="function">
             <div className="head">Show Time</div>
             <div className="selector time">
-              <div
+              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
                 className={this.state.showTime == 1 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ showTime: 1 })}
               >
                 {showtime.time1}
               </div>
-              <div
+              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
                 className={this.state.showTime == 2 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ showTime: 2 })}
               >
                 {showtime.time2}
               </div>
-              <div
+              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
                 className={this.state.showTime == 3 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ showTime: 3 })}
               >
@@ -198,13 +200,13 @@ export default class Movie extends Component {
           <div className="function">
             <div className="head">Seat</div>
             <div className="selector seat">
-              <div
+              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
                 className={this.state.seat == 1 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ seat: 1 })}
               >
                 {seat.normal}
               </div>
-              <div
+              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
                 className={this.state.seat == 2 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ seat: 2 })}
               >
@@ -216,13 +218,13 @@ export default class Movie extends Component {
           <div className="function">
             <div className="head">Sound System</div>
             <div className="selector sound">
-              <div
+              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
                 className={this.state.sound == 1 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ sound: 1 })}
               >
                 {sound.thai}
               </div>
-              <div
+              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
                 className={this.state.sound == 2 ? "button-Y" : "button-N"}
                 onClick={() => this.setState({ sound: 2 })}
               >
@@ -234,10 +236,10 @@ export default class Movie extends Component {
           <div className="add-on function">
             <div className="head">Add-on</div>
             <div className="selector">
-              <div className="button">
+              <div className="button-N" style={{width:"50%",margin:"5px"}}>
                 <img />
               </div>
-              <div className="button">
+              <div className="button-N" style={{width:"50%",margin:"5px"}}>
                 <img />
               </div>
             </div>
