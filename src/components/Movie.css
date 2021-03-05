@@ -136,24 +136,33 @@
   }
 
 
-#right, #left {
+.rightright, .leftleft {
     position: absolute;
     z-index: 99;
     cursor: pointer;
     width: calc(var(--movie-width) * 30 / 440);
     height: calc(var(--movie-width) * 30 / 440);
-    border-radius: 50%;
+    border-radius: 100%;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+    /* background-color: white; */
 }
 
-#left {    
+.leftleft {    
     left:0;
     top: calc(50% - var(--movie-width) * 15 / 440);
 }
 
-#right {
+.rightright {
     right: 0;
     top: calc(50% - var(--movie-width) * 15 / 440);
+}
+
+.leftleft:hover{
+    background-color: rgb(255, 255, 255, 0.5);
+}
+
+.rightright:hover{
+    background-color: rgb(255, 255, 255, 0.5);
 }
 
 .left-right-fixer {    

@@ -128,15 +128,15 @@ export default class Movie extends Component {
             <div className="name">{movieinfo[this.state.movie - 1].name}</div>
             <div className="wrapinfo">
               <div className="info">
-                <div className="icon" />
+                <div className="icon"><i class="fas fa-tags fa-xs"style={{color:"white",margin:"2px"}}></i></div>
                 {movieinfo[this.state.movie - 1].genre}
               </div>
-              <div className="info">
-                <div className="icon" />
+              <div className="info" >
+                <div className="icon" ><i class="fas fa-hourglass-start fa-xs" style={{color:"white",marginLeft:"3.5px"}}></i></div>
                 {movieinfo[this.state.movie - 1].duration}
               </div>
               <div className="info">
-                <div className="icon" />
+                <div className="icon" ><i class="far fa-calendar-alt fa-sm" style={{color:"white", marginLeft:"2.5px"}}></i></div>
                 {movieinfo[this.state.movie - 1].date}
               </div>
               <div className="info">
@@ -147,8 +147,8 @@ export default class Movie extends Component {
         </div>
         
         <div className="left-right-fixer">
-          <a id="left" onClick={this.goLeft}></a>
-          <a id="right" onClick={this.goRight}></a>
+          <a id="left" className="leftleft" onClick={this.goLeft}><i class="fas fa-chevron-circle-left" style={{display:"flex",justifyContent:"center",marginTop:"3.5px",opacity:"0.9"}}></i></a>
+          <a id="right" className="rightright" onClick={this.goRight}><i class="fas fa-chevron-circle-right" style={{display:"flex",justifyContent:"center",marginTop:"3.5px",opacity:"0.9"}}></i></a>
         <div id="scroller" className="otherMovie">
           <div id="container">
           
