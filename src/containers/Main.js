@@ -14,7 +14,7 @@ export default function Main() {
 				<div className="dfa">
 					<p className="text">Output</p>
 					<div className="container">dfsdf</div>
-					<DFA />
+					<DFA currentState="Start"/>
 					<p className="text">Input</p>
 					<div className="container">dfsdf</div>
 				</div>
