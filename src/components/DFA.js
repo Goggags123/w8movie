@@ -1,7 +1,7 @@
+import React, { useState,Fragment } from "react";
+
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
-
-import React, { Fragment, useEffect, useState } from "react";
 import "./DFA.css";
 import { createBurst, freeArray } from "./Geonometry";
 
@@ -59,7 +59,6 @@ function initDiagram() {
 		geo.spot2 = new go.Spot(0.777, 0.777);
 		return geo;
 	});
-	// define a simple Node template
 	diagram.nodeTemplate = $(
 		go.Node,
 		"Auto",
@@ -86,7 +85,6 @@ function initDiagram() {
 			new go.Binding("text", "key").makeTwoWay()
 		)
 	);
-
 	diagram.linkTemplate = $(
 		go.Link,
 		{ routing: go.Link.Orthogonal, curve: go.Link.JumpOver, corner: 10 },
@@ -163,17 +161,49 @@ function initDiagram() {
 			animation.start();
 		});
 	};
+	window.zoom = (isZoomedIn) => {
+		if (isZoomedIn) {
+			diagram.scale += 0.1;
+		} else {
+			diagram.scale -= 0.1;
+		}
+	};
+	window.animateZoom = () => {
+		var animation = new go.Animation();
+		animation.add(diagram, "scale", diagram.scale, 1);
+		animation.start();
+	};
 	// window.showPath = (toggle) => {
 	// 	if (toggle) {
 	// 		window.save();
+	// 		let previousNode = diagram.model.nodeDataArray;
+
 	// 	} else {
 	// 		window.load();
 	// 	}
 	// };
+	var count = 0;
+	diagram.addDiagramListener("InitialLayoutCompleted", () => {
+		if (count == 1) {
+			window.scrollTo(0,0);
+			document.getElementsByTagName("body")[0].style.overflowY = "visible";
+			document.getElementsByTagName("body")[0].style.height = "100vh";
+			setTimeout(() => {
+				window.setLoading(false);
+			},3000);
+		}
+		count += 1;
+	});
 	return diagram;
 }
 
-function DFA({ currentState }) {
+/**
+ * This function handles any changes to the GoJS model.
+ * It is here that you would make any updates to your React state, which is dicussed below.
+ */
+
+export default function DFA({ currentState, setInput, setLoading }) {
+	var counter;
 	let [model, setModel] = useState({});
 	// let [path,setModel] = useState({});
 	const topRight = "0.85 0.15";
@@ -240,17 +270,16 @@ function DFA({ currentState }) {
 	column3 = makeColumn(column3);
 	column4 = makeColumn(column4);
 	column5 = makeColumn(column5);
+	window.setLoading = setLoading;
 	return (
 		<Fragment>
+		<div className="panel">
 			<ReactDiagram
 				initDiagram={initDiagram}
 				divClassName="diagram-component"
 				nodeDataArray={[
-					{
-						key: "Start",
-						color: "#FF6C00",
-						loc: "0 0",
-					},
+					{ key: "Start", color: "#FF6C00", loc: "-400 0" },
+					{ key: "Confirm", color: "#FF6C00", loc: "0 50" },
 					...column1.node,
 					...column2.node,
 					// ...column3.node,
@@ -271,26 +300,35 @@ function DFA({ currentState }) {
 					...column5.self,
 				]}
 			/>
+			
 			<div className="group">
+				<div className="zoom"></div>
 				<i
-					className="fa fa-plus fa-fw zoom"
-					onClick={() => {
-						// window.initGlowing(currentState);
-						window.animateColorAndFraction(currentState);
-						// window.save(setModel);
+					className="fas fa-search-plus zoom"
+					onMouseDown={() => {
+						window.zoom(true);
+						counter = setInterval(() => {
+							window.zoom(true);
+						}, 150);
+					}}
+					onMouseUp={() => {
+						clearInterval(counter);
 					}}
 				></i>
-				<hr></hr>
 				<i
-					className="fa fa-minus fa-fw zoom"
-					onClick={() => {
-						window.togglePath(true);
-						// console.log(model);
+					className="fas fa-search-minus zoom"
+					onMouseDown={() => {
+						window.zoom(false);
+						counter = setInterval(() => {
+							window.zoom(false);
+						}, 150);
+					}}
+					onMouseUp={() => {
+						clearInterval(counter);
 					}}
 				></i>
 			</div>
+		</div>
 		</Fragment>
 	);
 }
-
-export default DFA;

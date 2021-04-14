@@ -1,6 +1,4 @@
-import { logDOM } from "@testing-library/react";
-import React, { useLayoutEffect } from "react";
-import { unstable_batchedUpdates } from "react-dom";
+import React from "react";
 import logo from "../images/logo.svg";
 
 export default function Navbar() {
