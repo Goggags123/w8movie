@@ -1,40 +1,47 @@
 import React, { Component } from "react";
 import "../components/Movie.css";
 import drink from "../images/drink.png";
-import popcorn from "../images/popcorn.png"
 import hacker from "../images/hacker.jpg"
 import beauty from "../images/beauty_and_the_beast.jpg"
 import harry from "../images/harry.jpg"
 import assasin from "../images/assasin.jpg"
 import parasite from "../images/parasite.jpg"
 import mulan from "../images/mulan.png"
+import Popcorn from "../icon/popcorn.svg";
+import Page1 from "./page1";
+import Page2 from "./page2";
+import Page3 from "./page3";
+import Page4 from "./page4";
+import PageConfirm from "./pageConfirm";
+import next from "../images/next.png";
+import back from "../images/back.png";
 const movieinfo = [
-  {
-    name: "Hacker",
-    picture: hacker,
-    genre: "Adventure, Sci-fi",
-    duration: "110 minutes",
-    date: "March 4, 2021",
-    description: "Leading actor : someone",
-  },
+  // {
+  //   name: "Harry Potter",
+  //   picture: harry,
+  //   genre: "Fantasy",
+  //   duration: "129 minutes",
+  //   date: "March 4, 2021",
+  //   description: "Leading actor : someone",
+  // },
+  // {
+  //   name: "Hacker",
+  //   picture: hacker,
+  //   genre: "Adventure, Sci-fi",
+  //   duration: "110 minutes",
+  //   date: "March 4, 2021",
+  //   description: "Leading actor : someone",
+  // },
   {
     name: "Beauty and the Beast",
     picture: beauty,
-    genre: "Lomantic, Fantasy",
+    genre: "Romance, Fantasy",
     duration: "129 minutes",
     date: "March 4, 2021",
     description: "Leading actor : someone",
   },
   {
-    name: "Harry Potter",
-    picture: harry,
-    genre: "Fantasy",
-    duration: "129 minutes",
-    date: "March 4, 2021",
-    description: "Leading actor : someone",
-  },
-  {
-    name: "Assasin",
+    name: "Assassin",
     picture: assasin,
     genre: "Adventure, Sci-fi",
     duration: "105 minutes",
@@ -79,29 +86,35 @@ export default class Movie extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showTime: 1,
-      seat: 1,
-      sound: 1,
-      beverage: false,
+      time: "",
+      seat: "",
+      sound: "",
+      cola: false,
       popcorn: false,
-      movie: 1,
+      movie: -1,
+      step:1,
+      right:false
     };
   }
 
-  goRight = () => {
-    if (this.state.movie<6)
-    {
-      this.setState({movie: this.state.movie+1});
-      document.getElementById('scroller').scrollLeft+=50;
-    }
+  checkRight = () => {
+    if(
+        this.state.step==1 && this.state.movie!=-1 ||
+        this.state.step==2 && this.state.sound!="" ||
+        this.state.step==3 && this.state.time!="" ||
+        this.state.step==4 && this.state.seat!="" ||
+        this.state.step==5 ) return true;
+    return false;
 
+  }
+  goRight = () => {
+      this.setState({step:this.state.step+1});
   };
 
   goLeft = () => {
-    if (this.state.movie>1)
+    if(this.state.step>1)
     {
-      this.setState({movie: this.state.movie-1});
-      document.getElementById('scroller').scrollLeft-=50;
+      this.setState({step:this.state.step-1});
     }
   };
 
@@ -112,147 +125,81 @@ export default class Movie extends Component {
     this.setState({ movie: i+1 })
   }
 
+  stepDescription = () => {
+    if (this.state.step == 1)return "เลือกภาพยนตร์";
+    if (this.state.step == 2)return "เลือกเสียงพากย์";
+    if (this.state.step == 3)return "เลือกรอบฉาย";
+    if (this.state.step == 4)return "เลือกชนิดที่นั่ง";
+    if (this.state.step == 5)return "ยืนยันการจอง";
+  }
+
+  getPage = () => {
+    if(this.state.step==1)return <Page1 info={movieinfo} movie={this.state.movie} kept={this.kept}/>;
+    if(this.state.step==2)return <Page2 sound={this.state.sound} kept={this.kept}/>;
+    if(this.state.step==3)return <Page3 time={this.state.time} kept={this.kept}/>;
+    if(this.state.step==4)return <Page4 seat={this.state.seat} kept={this.kept}/>;
+    if(this.state.step==5)return <PageConfirm movieinfo={movieinfo} info={this.state} kept={this.kept} confirm={this.goRight}/>;
+  }
+
+  kept = (state,value) => {
+    if(state=="movie")this.setState({movie:value});
+    else if(state=="sound")this.setState({sound:value});
+    else if(state=="time")this.setState({time:value});
+    else if(state=="seat")this.setState({seat:value});
+    else if(state=="popcorn")this.setState({popcorn:value});
+    else if(state=="cola")this.setState({cola:value});
+  }
+
+  reset = () => {
+    this.setState({
+    time: "",
+    seat: "",
+    sound: "",
+    cola: false,
+    popcorn: false,
+    movie: -1,
+    step:1,
+    right:false
+
+    })
+  }
+
   render() {
     
     console.log(this.state.movie)
     return (
       <div className="movie">
-
-        <div id="title" className="head">
-          Movie
-        </div>
-        <div className="movieInfo">
-          <img
-            className="moviePicInfo"
-            src={movieinfo[this.state.movie - 1].picture}
-          />
-          <div className="movieTextInfo">
-            <div className="name">{movieinfo[this.state.movie - 1].name}</div>
-            <div className="wrapinfo">
-              <div className="info">
-                <div className="icon"><i class="fas fa-tags fa-xs"style={{color:"white",margin:"2px"}}></i></div>
-                {movieinfo[this.state.movie - 1].genre}
-              </div>
-              <div className="info" >
-                <div className="icon" ><i class="fas fa-hourglass-start fa-xs" style={{color:"white",marginLeft:"3.5px"}}></i></div>
-                {movieinfo[this.state.movie - 1].duration}
-              </div>
-              <div className="info">
-                <div className="icon" ><i class="far fa-calendar-alt fa-sm" style={{color:"white", marginLeft:"2.5px"}}></i></div>
-                {movieinfo[this.state.movie - 1].date}
-              </div>
-              <div className="info">
-                {movieinfo[this.state.movie - 1].description}
-              </div>
-            </div>
-          </div>
-        </div>
         
-        <div className="left-right-fixer">
-          <a id="left" className="leftleft" onClick={this.goLeft}><i class="fas fa-chevron-circle-left" style={{display:"flex",justifyContent:"center",marginTop:"3.5px",opacity:"0.9"}}></i></a>
-          <a id="right" className="rightright" onClick={this.goRight}><i class="fas fa-chevron-circle-right" style={{display:"flex",justifyContent:"center",marginTop:"3.5px",opacity:"0.9"}}></i></a>
-        <div id="scroller" className="otherMovie">
-          <div id="container">
-          
-          <div className="empty1"/>
-          <div className="empty2"/>
-          {movieinfo.map((movie, i) => {
-            return (
-              <div
-                key={i}
-                id={"movie"+(i+1)}
-                className={this.state.movie == i + 1 ? "mv-Y" : "mv-N"}
-                onClick={()=>this.movieSelected(i)}
-              >
-                <img src={movie.picture} />
-              </div>
-            );
-          })}
-          <div className="empty2"/>
-          <div className="empty1"/>
-          </div>
+        <ul className="head">
+          <li className={this.state.step==1?"inStep":"completeStep"}></li>
+          <li className={this.state.step==2?"inStep":this.state.step>2?"completeStep":"uncompleteStep"}></li>
+          <li className={this.state.step==3?"inStep":this.state.step>3?"completeStep":"uncompleteStep"}></li>
+          <li className={this.state.step==4?"inStep":this.state.step>4?"completeStep":"uncompleteStep"}></li>
+          <li className={this.state.step==5?"inStep":this.state.step>5?"completeStep":"uncompleteStep"}></li>
+        </ul>
+
+        <div id="title">{this.stepDescription()}</div>
+        
+        {this.getPage()}
+        
+        {this.state.step==6?"":
+        <div className={this.state.step==1?"disabled left":"enabled left"} onClick={this.goLeft}>
+          <img src={back}/>
         </div>
-        </div>
+        }
+        
+        {this.state.step!=6?
+        <div  className={this.state.step==5?"confirm right":!this.checkRight()?"disabled right":"enabled right"} onClick={this.checkRight()?this.goRight:""}>
+          {this.state.step==5?<p>confirm</p>:
+            <img src={next}/>
+          }
+        </div>:
 
-        <div className="zone">
-          <div className="function">
-            <div className="head">Show Time</div>
-            <div className="selector time">
-              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
-                className={this.state.showTime == 1 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ showTime: 1 })}
-              >
-                {showtime.time1}
-              </div>
-              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
-                className={this.state.showTime == 2 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ showTime: 2 })}
-              >
-                {showtime.time2}
-              </div>
-              <div style={{width:"30%",margin:"5px",textAlign:"center"}}
-                className={this.state.showTime == 3 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ showTime: 3 })}
-              >
-                {showtime.time3}
-              </div>
-            </div>
-          </div>
+        <div className="reset" onClick={this.reset}>reset</div>
 
-          <div className="function">
-            <div className="head">Seat</div>
-            <div className="selector seat">
-              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
-                className={this.state.seat == 1 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ seat: 1 })}
-              >
-                {seat.normal}
-              </div>
-              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
-                className={this.state.seat == 2 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ seat: 2 })}
-              >
-                {seat.honey}
-              </div>
-            </div>
-          </div>
+        }
 
-          <div className="function">
-            <div className="head">Sound System</div>
-            <div className="selector sound">
-              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
-                className={this.state.sound == 1 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ sound: 1 })}
-              >
-                {sound.thai}
-              </div>
-              <div style={{width:"50%",margin:"5px",textAlign:"center"}}
-                className={this.state.sound == 2 ? "button-Y" : "button-N"}
-                onClick={() => this.setState({ sound: 2 })}
-              >
-                {sound.eng}
-              </div>
-            </div>
-          </div>
 
-          <div className="add-on function">
-            <div className="head">Add-on</div>
-            <div className="selector">
-              <div className="button-N" style={{width:"50%",margin:"5px"}}>
-                <div style={{marginTop:"10px",width:"100%",display:"flex",justifyContent:"center"}}>
-                  <img src={popcorn} height="50px" />
-                </div>
-              </div>
-              <div className="button-N" style={{width:"50%",margin:"5px"}}>
-                <div style={{marginTop:"10px",width:"100%",display:"flex",justifyContent:"center"}}>
-                  <img src={drink} height="50px" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="confirm">Confirm</div>
       </div>
     );
   }
