@@ -1,3 +1,8 @@
+:root {
+  --movie-width: 290px;
+  --dfa-width: 450px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -12,6 +17,7 @@ a {
 button {
   cursor: pointer;
 }
+
 
 body, .body {
   min-height: 100vh;
@@ -74,7 +80,8 @@ body, .body {
   list-style-type: none;
   display: flex;
   flex-direction: row;
-  /* position: fixed; */
+  position: sticky;
+  z-index: 999;
 }
 
 img.logo {
@@ -95,8 +102,9 @@ p.text {
   font-size: 1rem;
 }
 div.dfa {
-  padding: 1% 0 0 0;
-  width: 68%;
+  min-width: var(--dfa-width);
+  width: calc(100% - var(--movie-width) - 2%);
+  z-index: 2;
 }
 div.container {
   width: 100%;
@@ -107,11 +115,25 @@ div.container {
   border-radius: 1rem;
   backdrop-filter: blur(3rem);
   padding: 0.75% 0 0.75% 1%;
-  margin: 0.5% 0 0 0 ;
+  margin: 0.5% 0;
 }
 
-div.layout {
+.layout {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  min-width: calc(5% + 20px + var(--dfa-width) + var(--movie-width));
+  width: 95%;
+  padding: 0 2.5%;
 }
 
+.allContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+  transform: translateY(4%);
+}
