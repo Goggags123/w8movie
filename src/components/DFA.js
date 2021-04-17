@@ -1,9 +1,13 @@
-import React, { useState,Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
 import "./DFA.css";
-import { createBurst, freeArray } from "./Geonometry";
+import { createBurst, freeArray } from "../utils/Geonometry";
+import zoomIn from "../images/zoom-in.png";
+import zoomOut from "../images/zoom-out.png";
+import reset from "../images/reset-zoom.png";
+import {nodeDataArray,linkDataArray} from "../utils/DiagramData";
 
 function initDiagram() {
 	const $ = go.GraphObject.make;
@@ -11,24 +15,11 @@ function initDiagram() {
 	const diagram = $(
 		go.Diagram,
 		{
-			"undoManager.isEnabled": true, // must be set to allow for model change listening
-			// 'undoManager.maxHistoryLength': 0,  // uncomment disable undo/redo functionality
-			"clickCreatingTool.archetypeNodeData": {
-				text: "new node",
-				color: "lightblue",
-			},
-
+			// isReadOnly:true,
 			model: $(go.GraphLinksModel, {
 				linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
 			}),
 		},
-		{
-			layout: $(go.TreeLayout, {
-				angle: 0,
-				nodeSpacing: 100,
-				layerSpacing: 200,
-			}),
-		}
 	);
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);
@@ -70,8 +61,7 @@ function initDiagram() {
 				fill: "#A64568",
 				stroke: "white",
 				strokeWidth: 3,
-				width: 70,
-				height: 70,
+				desiredSize: new go.Size(70,70),
 			},
 			new go.Binding("fill", "color")
 		),
@@ -82,15 +72,19 @@ function initDiagram() {
 				font: "Normal 0.75rem Roboto",
 				textAlign: "center",
 			},
-			new go.Binding("text", "key").makeTwoWay()
+			new go.Binding("text", "text").makeTwoWay()
 		)
 	);
 	diagram.linkTemplate = $(
 		go.Link,
-		{ routing: go.Link.Orthogonal, curve: go.Link.JumpOver, corner: 10 },
-		new go.Binding("routing", "routing"),
-		$(go.Shape, { stroke: "white", strokeWidth: 3 }),
-		$(go.Shape, { toArrow: "OpenTriangle", stroke: "white", strokeWidth: 3 }),
+		new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
+		new go.Binding("toSpot", "toSpot", go.Spot.parse),
+		{ routing: go.Link.AvoidsNodes, corner: 10,adjusting:go.Link.Scale},
+		new go.Binding("routing"),
+		new go.Binding("fromEndSegmentLength"),
+		new go.Binding("toEndSegmentLength"),
+		$(go.Shape, { stroke: "white", strokeWidth: 2 }),
+		$(go.Shape, { toArrow: "OpenTriangle", stroke: "white", strokeWidth: 2 }),
 		$(go.Shape, "TenPointedBurst", {
 			name: "GLOW",
 			fill: "transparent",
@@ -98,8 +92,6 @@ function initDiagram() {
 			width: 12,
 			height: 12,
 		}),
-		new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
-		new go.Binding("toSpot", "toSpot", go.Spot.parse),
 		$(
 			go.TextBlock,
 			{
@@ -109,7 +101,9 @@ function initDiagram() {
 				segmentFraction: 0.5,
 				segmentOffset: new go.Point(0, -10),
 				shadowVisible: false,
+				textAlign: "center",
 			},
+			new go.Binding("segmentIndex"),
 			new go.Binding("segmentOffset", "offset"),
 			new go.Binding("text", "label")
 		)
@@ -173,24 +167,31 @@ function initDiagram() {
 		animation.add(diagram, "scale", diagram.scale, 1);
 		animation.start();
 	};
-	// window.showPath = (toggle) => {
-	// 	if (toggle) {
-	// 		window.save();
-	// 		let previousNode = diagram.model.nodeDataArray;
+	window.showPath = (toggle,currentState) => {
+		if (toggle) {
+			diagram.links.each(function (link) {
+				console.log(link.data)
+				if (link.data.from != currentState) {
+					link.opacity = 0;
+					return;}
+				link.opacity = 1;
+			});
 
-	// 	} else {
-	// 		window.load();
-	// 	}
-	// };
+		} else {
+			diagram.links.each(function (link) {
+				link.opacity = 1;
+			});
+		}
+	};
 	var count = 0;
 	diagram.addDiagramListener("InitialLayoutCompleted", () => {
 		if (count == 1) {
-			window.scrollTo(0,0);
+			window.scrollTo(0, 0);
 			document.getElementsByTagName("body")[0].style.overflowY = "visible";
 			document.getElementsByTagName("body")[0].style.height = "100vh";
 			setTimeout(() => {
 				window.setLoading(false);
-			},3000);
+			}, 3000);
 		}
 		count += 1;
 	});
@@ -204,131 +205,60 @@ function initDiagram() {
 
 export default function DFA({ currentState, setInput, setLoading }) {
 	var counter;
+	var toggle = true;
 	let [model, setModel] = useState({});
-	// let [path,setModel] = useState({});
-	const topRight = "0.85 0.15";
-	const topLeft = "0.15 0.15";
-	const f = (a, b) =>
-		[].concat(...a.map((a) => b.map((b) => a.concat("\n", b))));
-	const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
-	const makeColumn = (column, isStart = false) => {
-		let node = [],
-			self = [],
-			link = [];
-		for (let i = 0; i < column.length; i++) {
-			node.push({
-				key: column[i],
-			});
-			const from = column[i].slice(0, column[i].lastIndexOf("\n"));
-			const split = column[i].split("\n");
-			const to = split[split.length - 1];
-			link.push(
-				isStart
-					? {
-							from: "Start",
-							to: column[i],
-							label: column[i],
-							fromSpot: "Right",
-							toSpot: "Left",
-					  }
-					: {
-							from: from,
-							to: column[i],
-							label: to,
-							fromSpot: "Right",
-							toSpot: "Left",
-					  }
-			);
-			self.push({
-				from: column[i],
-				to: column[i],
-				label: isStart ? column[i] : to,
-				routing: "curve",
-				fromSpot: topRight,
-				toSpot: topLeft,
-				offset: new go.Point(0, 5),
-			});
-		}
-		return {
-			node,
-			self,
-			link,
-		};
-	};
-	const movies = ["Hackers", "Beauty", "Harry", "Assasin", "Parasite"];
-	const showTime = ["12:00", "14:20", "16:40"];
-	const seat = ["Normal", "Honeymoon"];
-	const soundSystem = ["Thai", "English"];
-	const addOn = ["Popcorn", "Drinks", "Both"];
-	let column1 = movies;
-	let column2 = cartesian(movies, showTime);
-	let column3 = cartesian(column2, seat);
-	let column4 = cartesian(column3, soundSystem);
-	let column5 = cartesian(column4, addOn);
-	column1 = makeColumn(column1, true);
-	column2 = makeColumn(column2);
-	column3 = makeColumn(column3);
-	column4 = makeColumn(column4);
-	column5 = makeColumn(column5);
 	window.setLoading = setLoading;
 	return (
 		<Fragment>
-		<div className="panel">
-			<ReactDiagram
-				initDiagram={initDiagram}
-				divClassName="diagram-component"
-				nodeDataArray={[
-					{ key: "Start", color: "#FF6C00", loc: "-400 0" },
-					{ key: "Confirm", color: "#FF6C00", loc: "0 50" },
-					...column1.node,
-					...column2.node,
-					// ...column3.node,
-					// ...column4.node,
-					// ...column5.node,
-					// { key: "Confirm", color: "#FF6C00", loc: "0 50" },
-				]}
-				linkDataArray={[
-					...column1.link,
-					...column2.link,
-					...column3.link,
-					...column4.link,
-					...column5.link,
-					...column1.self,
-					...column2.self,
-					...column3.self,
-					...column4.self,
-					...column5.self,
-				]}
-			/>
-			
-			<div className="group">
-				<div className="zoom"></div>
-				<i
-					className="fas fa-search-plus zoom"
-					onMouseDown={() => {
-						window.zoom(true);
-						counter = setInterval(() => {
+			<div className="panel">
+				<ReactDiagram
+					initDiagram={initDiagram}
+					divClassName="diagram-component"
+					nodeDataArray={nodeDataArray}
+					linkDataArray={linkDataArray}
+				/>
+
+				<div className="group">
+					<div
+						className="zoom"
+						onMouseDown={() => {
+							window.showPath(toggle,currentState);
+							toggle = !toggle;
+							// window.animateZoom();
+						}}
+					>
+						<img src={reset} alt="reset zoom" style={{transform:"translateY(25%)"}} />
+					</div>
+					<div
+						className="zoom"
+						onMouseDown={() => {
 							window.zoom(true);
-						}, 150);
-					}}
-					onMouseUp={() => {
-						clearInterval(counter);
-					}}
-				></i>
-				<i
-					className="fas fa-search-minus zoom"
-					onMouseDown={() => {
-						window.zoom(false);
-						counter = setInterval(() => {
+							counter = setInterval(() => {
+								window.zoom(true);
+							}, 150);
+						}}
+						onMouseUp={() => {
+							clearInterval(counter);
+						}}
+					>
+						<img src={zoomIn} alt="zoom in" />
+					</div>
+					<div
+						className="zoom"
+						onMouseDown={() => {
 							window.zoom(false);
-						}, 150);
-					}}
-					onMouseUp={() => {
-						clearInterval(counter);
-					}}
-				></i>
+							counter = setInterval(() => {
+								window.zoom(false);
+							}, 150);
+						}}
+						onMouseUp={() => {
+							clearInterval(counter);
+						}}
+					>
+						<img src={zoomOut} alt="zoom out" />
+					</div>
+				</div>
 			</div>
-		</div>
 		</Fragment>
 	);
 }
