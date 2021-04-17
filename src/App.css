@@ -18,10 +18,13 @@ button {
   cursor: pointer;
 }
 
-body {
-  height: calc(100vh - 8%);
-  width: 100%;
-  /* overflow: hidden; */
+
+body, .body {
+  min-height: 100vh;
+  width: 100vw;
+  /* overflow: scroll; */
+  overflow-x: hidden;
+  /* height: 100%; */
   background: -webkit-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
   background: -moz-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
   background: -ms-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
