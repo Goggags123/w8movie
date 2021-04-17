@@ -214,7 +214,7 @@ function initDiagram() {
  * It is here that you would make any updates to your React state, which is dicussed below.
  */
 
-export default function DFA({ currentState, setLoading, setState }) {
+export default function DFA({ currentState, setLoading, setState ,toggle ,setToggle }) {
 	var counter;
 	var toggle = true;
 	let [model, setModel] = useState({});
@@ -234,7 +234,7 @@ export default function DFA({ currentState, setLoading, setState }) {
 						className="zoom"
 						onMouseDown={() => {
 							window.showPath(toggle, currentState);
-							toggle = !toggle;
+							setToggle(!toggle);
 						}}
 					>
 						<img

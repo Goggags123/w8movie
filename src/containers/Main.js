@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 export default function Main() {
 	let [input, setInput] = useState("");
 	let [output, setOutput] = useState("");
+	let [toggle, setToggle] = useState(true);
 	let [isLoading, setLoading] = useState(true);
 	let [currentState, setState] = useState(0);
 	return (
@@ -25,6 +26,8 @@ export default function Main() {
 						currentState={currentState}
 						setLoading={setLoading}
 						setState={setState}
+						toggle={toggle}
+						setToggle={setToggle}
 					/>
 					<p className="text">Input</p>
 					<div className="container">{input}</div>
@@ -36,7 +39,9 @@ export default function Main() {
 						setState={setState}
 						setOutput={setOutput}
 						currentState={currentState}
+						toggle={toggle}
 				/>
+			<div style={{color : "white"}}>{currentState}</div>
 		</Fragment>
 	);
 }

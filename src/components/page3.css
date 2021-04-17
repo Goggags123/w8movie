@@ -4,7 +4,7 @@
 }
 
 
-.time ,.page3 .selected {
+.time ,.page3 .selected , .page3 .invalid {
     position: relative;
     width: 90%;
     margin: 5% 0;
@@ -24,12 +24,6 @@
 .time p ,.page3 .selected p{
     height: fit-content;
     width: fit-content;
-    /* position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto; */
     margin-top: calc(var(--movie-width) * 10 / 440);
     font-size: 110%;
 }

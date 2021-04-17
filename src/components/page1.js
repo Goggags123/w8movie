@@ -12,7 +12,7 @@ export default class Page1 extends Component {
                 key={i}
                 id={"movie"+(i+1)}
                 className={this.props.movie==i?"selected movieInfo":"movieInfo"}
-                onClick={()=>this.props.kept("movie",i)}
+                onClick={()=>this.props.kept("movie",i,true)}
               >
                 <img
                   className="moviePicInfo"
