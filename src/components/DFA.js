@@ -7,20 +7,19 @@ import { createBurst, freeArray } from "../utils/Geonometry";
 import zoomIn from "../images/zoom-in.png";
 import zoomOut from "../images/zoom-out.png";
 import reset from "../images/reset-zoom.png";
-import {nodeDataArray,linkDataArray} from "../utils/DiagramData";
+import { nodeDataArray, linkDataArray } from "../utils/DiagramData";
+import { transition } from "../utils/Machine";
+var isAnimated = true;
 
 function initDiagram() {
 	const $ = go.GraphObject.make;
 	// set your license key here before creating the diagram: go.Diagram.licenseKey = "...";
-	const diagram = $(
-		go.Diagram,
-		{
-			// isReadOnly:true,
-			model: $(go.GraphLinksModel, {
-				linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
-			}),
-		},
-	);
+	const diagram = $(go.Diagram, {
+		// isReadOnly:true,
+		model: $(go.GraphLinksModel, {
+			linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
+		}),
+	});
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);
 		var geo = new go.Geometry();
@@ -61,7 +60,7 @@ function initDiagram() {
 				fill: "#A64568",
 				stroke: "white",
 				strokeWidth: 3,
-				desiredSize: new go.Size(70,70),
+				desiredSize: new go.Size(70, 70),
 			},
 			new go.Binding("fill", "color")
 		),
@@ -79,7 +78,7 @@ function initDiagram() {
 		go.Link,
 		new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
 		new go.Binding("toSpot", "toSpot", go.Spot.parse),
-		{ routing: go.Link.AvoidsNodes, corner: 10,adjusting:go.Link.Scale},
+		{ routing: go.Link.AvoidsNodes, corner: 10, adjusting: go.Link.Scale },
 		new go.Binding("routing"),
 		new go.Binding("fromEndSegmentLength"),
 		new go.Binding("toEndSegmentLength"),
@@ -136,12 +135,25 @@ function initDiagram() {
 	// window.load = (model) => {
 	// 	diagram.model = go.Model.fromJson(model);
 	// };
+	window.stopAnimation = (isStopped) => {
+		if (isStopped) {
+			diagram.links.each(function (link) {
+				const glow = link.findObject("GLOW");
+				glow.fill = "transparent";
+				glow.shadowVisible = false;
+			});
+			diagram.animationManager.stopAnimation(true);
+			diagram.animationManager.isEnabled = false;
+		} else {
+			diagram.animationManager.isEnabled = true;
+		}
+	};
 	window.animateColorAndFraction = (currentState) => {
+		if (!diagram.animationManager.isEnabled) return;
 		var animation = new go.Animation();
 		diagram.links.each(function (link) {
 			link.isShadowed = true;
 			link.shadowColor = "white";
-			// link.shadowBlur = ;
 			link.shadowOffset = new go.Point(0, 0);
 			const glow = link.findObject("GLOW");
 			glow.fill = "transparent";
@@ -167,16 +179,15 @@ function initDiagram() {
 		animation.add(diagram, "scale", diagram.scale, 1);
 		animation.start();
 	};
-	window.showPath = (toggle,currentState) => {
+	window.showPath = (toggle, currentState) => {
 		if (toggle) {
 			diagram.links.each(function (link) {
-				console.log(link.data)
 				if (link.data.from != currentState) {
 					link.opacity = 0;
-					return;}
+					return;
+				}
 				link.opacity = 1;
 			});
-
 		} else {
 			diagram.links.each(function (link) {
 				link.opacity = 1;
@@ -203,7 +214,7 @@ function initDiagram() {
  * It is here that you would make any updates to your React state, which is dicussed below.
  */
 
-export default function DFA({ currentState, setInput, setLoading }) {
+export default function DFA({ currentState, setLoading, setState }) {
 	var counter;
 	var toggle = true;
 	let [model, setModel] = useState({});
@@ -222,12 +233,15 @@ export default function DFA({ currentState, setInput, setLoading }) {
 					<div
 						className="zoom"
 						onMouseDown={() => {
-							window.showPath(toggle,currentState);
+							window.showPath(toggle, currentState);
 							toggle = !toggle;
-							// window.animateZoom();
 						}}
 					>
-						<img src={reset} alt="reset zoom" style={{transform:"translateY(25%)"}} />
+						<img
+							src={reset}
+							alt="reset zoom"
+							style={{ transform: "translateY(25%)" }}
+						/>
 					</div>
 					<div
 						className="zoom"
