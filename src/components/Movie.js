@@ -35,6 +35,7 @@ const movieinfo = [
   {
     name: "Beauty and the Beast",
     picture: beauty,
+    nationality: "th",
     genre: "Romance, Fantasy",
     duration: "129 minutes",
     date: "March 4, 2021",
@@ -43,6 +44,7 @@ const movieinfo = [
   {
     name: "Assassin",
     picture: assasin,
+    nationality: "th",
     genre: "Adventure, Sci-fi",
     duration: "105 minutes",
     date: "March 4, 2021",
@@ -51,6 +53,7 @@ const movieinfo = [
   {
     name: "Mulan",
     picture: mulan,
+    nationality: "en",
     genre: "Adventure, Drama",
     duration: "115 minutes",
     date: "March 4, 2021",
@@ -59,6 +62,7 @@ const movieinfo = [
   {
     name: "Parasite",
     picture: parasite,
+    nationality: "en",
     genre: "Comedy",
     duration: "132 minutes",
     date: "March 4, 2021",
@@ -93,7 +97,8 @@ export default class Movie extends Component {
       popcorn: false,
       movie: -1,
       step:1,
-      right:false
+      right:false,
+      str:""
     };
   }
 
@@ -135,14 +140,16 @@ export default class Movie extends Component {
 
   getPage = () => {
     if(this.state.step==1)return <Page1 info={movieinfo} movie={this.state.movie} kept={this.kept}/>;
-    if(this.state.step==2)return <Page2 sound={this.state.sound} kept={this.kept}/>;
+    if(this.state.step==2)return <Page2 movie={movieinfo[this.state.movie]} sound={this.state.sound} kept={this.kept}/>;
     if(this.state.step==3)return <Page3 time={this.state.time} kept={this.kept}/>;
     if(this.state.step==4)return <Page4 seat={this.state.seat} kept={this.kept}/>;
     if(this.state.step==5)return <PageConfirm movieinfo={movieinfo} info={this.state} kept={this.kept} confirm={this.goRight}/>;
   }
 
-  kept = (state,value) => {
-    if(state=="movie")this.setState({movie:value});
+  kept = (state,value,boolean) => {
+    if(state=="movie"){
+      if(boolean)this.setState({movie:value});
+    }
     else if(state=="sound")this.setState({sound:value});
     else if(state=="time")this.setState({time:value});
     else if(state=="seat")this.setState({seat:value});

@@ -56,7 +56,7 @@
     transition: 0.5s;
     opacity: 1;
     /* background: linear-gradient(60deg  , #a31748,#da4328);    */
-    background: linear-gradient(60deg ,#410280 , #11dd2c);
+    background: linear-gradient(60deg ,#7f0bb4 , #ff7300);
 }
 
 .page3 .selected {
