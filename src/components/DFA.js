@@ -2,30 +2,23 @@ import React, { useState, Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
-
 import "./DFA.css";
-
+import { createBurst, freeArray } from "../utils/Geonometry";
 import zoomIn from "../images/zoom-in.png";
 import zoomOut from "../images/zoom-out.png";
 import reset from "../images/reset-zoom.png";
-import hidePath from "../images/eye.png";
-import showPath from "../images/eye-closed.png";
-import play from "../images/play.png";
-import pause from "../images/pause.png";
-
-import { createBurst, freeArray } from "../utils/Geonometry";
 import { nodeDataArray, linkDataArray } from "../utils/DiagramData";
+import { transition } from "../utils/Machine";
+var isAnimated = true;
 
 function initDiagram() {
 	const $ = go.GraphObject.make;
 	// set your license key here before creating the diagram: go.Diagram.licenseKey = "...";
 	const diagram = $(go.Diagram, {
-		isReadOnly:true,
-		allowSelect:false,
+		// isReadOnly:true,
 		model: $(go.GraphLinksModel, {
 			linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
 		}),
-		
 	});
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);
@@ -60,13 +53,6 @@ function initDiagram() {
 		go.Node,
 		"Auto",
 		new go.Binding("location", "loc", go.Point.parse),
-		{
-			shadowColor: "white",
-			shadowOffset: new go.Point(0, 0),
-			shadowBlur: 20,
-			isShadowed: true,
-			shadowVisible: false,
-		},
 		$(
 			go.Shape,
 			"Circle",
@@ -92,20 +78,12 @@ function initDiagram() {
 		go.Link,
 		new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
 		new go.Binding("toSpot", "toSpot", go.Spot.parse),
-		{
-			routing: go.Link.AvoidsNodes,
-			corner: 10,
-			adjusting: go.Link.End,
-			isShadowed: true,
-			shadowColor: "white",
-			shadowOffset: new go.Point(0, 0),
-		},
+		{ routing: go.Link.AvoidsNodes, corner: 10, adjusting: go.Link.Scale },
 		new go.Binding("routing"),
 		new go.Binding("fromEndSegmentLength"),
 		new go.Binding("toEndSegmentLength"),
-		new go.Binding("points"),
-		$(go.Shape, { stroke: "white", strokeWidth: 2 ,shadowVisible:false}),
-		$(go.Shape, { toArrow: "OpenTriangle", stroke: "white", strokeWidth: 2 ,shadowVisible:false}),
+		$(go.Shape, { stroke: "white", strokeWidth: 2 }),
+		$(go.Shape, { toArrow: "OpenTriangle", stroke: "white", strokeWidth: 2 }),
 		$(go.Shape, "TenPointedBurst", {
 			name: "GLOW",
 			fill: "transparent",
@@ -119,7 +97,7 @@ function initDiagram() {
 				font: "Normal 0.75rem Roboto",
 				stroke: "white",
 				segmentIndex: -2,
-				segmentFraction: 0.4,
+				segmentFraction: 0.5,
 				segmentOffset: new go.Point(0, -10),
 				shadowVisible: false,
 				textAlign: "center",
@@ -149,8 +127,16 @@ function initDiagram() {
 			);
 		}
 	);
-	window.stopAnimation = (isStopped, currentState) => {
-		if (!isStopped) {
+	// window.save = (setModel) => {
+	// 	console.log("model:", diagram.model.toJson());
+	// 	setModel(diagram.model.toJson());
+	// 	diagram.isModified = false;
+	// };
+	// window.load = (model) => {
+	// 	diagram.model = go.Model.fromJson(model);
+	// };
+	window.stopAnimation = (isStopped) => {
+		if (isStopped) {
 			diagram.links.each(function (link) {
 				const glow = link.findObject("GLOW");
 				glow.fill = "transparent";
@@ -160,21 +146,15 @@ function initDiagram() {
 			diagram.animationManager.isEnabled = false;
 		} else {
 			diagram.animationManager.isEnabled = true;
-			window.animateColorAndFraction(currentState);
 		}
-	};
-	window.highlight = (currentState) => {
-		diagram.nodes.each(function (node) {
-			node.shadowVisible = false;
-			if (node.key != currentState) return;
-			diagram.scrollToRect(node.actualBounds);
-			node.shadowVisible = true;
-		});
 	};
 	window.animateColorAndFraction = (currentState) => {
 		if (!diagram.animationManager.isEnabled) return;
 		var animation = new go.Animation();
 		diagram.links.each(function (link) {
+			link.isShadowed = true;
+			link.shadowColor = "white";
+			link.shadowOffset = new go.Point(0, 0);
 			const glow = link.findObject("GLOW");
 			glow.fill = "transparent";
 			glow.shadowVisible = false;
@@ -194,14 +174,10 @@ function initDiagram() {
 			diagram.scale -= 0.1;
 		}
 	};
-	var zoomAnimation = new go.Animation();
-	window.animateZoom = (isStopped) => {
-		if (!zoomAnimation.isAnimating && diagram.scale != 1) {
-			if (isStopped) diagram.animationManager.isEnabled = true;
-			zoomAnimation = new go.Animation();
-			zoomAnimation.add(diagram, "scale", diagram.scale, 1);
-			zoomAnimation.start();
-		}
+	window.animateZoom = () => {
+		var animation = new go.Animation();
+		animation.add(diagram, "scale", diagram.scale, 1);
+		animation.start();
 	};
 	window.showPath = (toggle, currentState) => {
 		if (toggle) {
@@ -226,7 +202,6 @@ function initDiagram() {
 			document.getElementsByTagName("body")[0].style.height = "100vh";
 			setTimeout(() => {
 				window.setLoading(false);
-				window.start();
 			}, 3000);
 		}
 		count += 1;
@@ -239,13 +214,11 @@ function initDiagram() {
  * It is here that you would make any updates to your React state, which is dicussed below.
  */
 
-export default function DFA({ toggle, currentState, setLoading, setToggle }) {
-	let [isStopped, setStop] = useState(false);
+export default function DFA({ currentState, setLoading, setState ,toggle ,setToggle }) {
+	var counter;
+	var toggle = true;
+	let [model, setModel] = useState({});
 	window.setLoading = setLoading;
-	window.start = () => {
-		window.animateColorAndFraction(currentState);
-		window.highlight(currentState);
-	}
 	return (
 		<Fragment>
 			<div className="panel">
@@ -255,63 +228,45 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 					nodeDataArray={nodeDataArray}
 					linkDataArray={linkDataArray}
 				/>
-				<div className="top-group">
+
+				<div className="group">
 					<div
-						className="alternate"
-						onClick={() => {
-							window.stopAnimation(isStopped, currentState);
-							setStop(!isStopped);
-						}}
-					>
-						<img
-							src={isStopped ? pause : play}
-							alt={isStopped ? "pause" : "play"}
-							style={
-								isStopped
-									? { width: "60%", transform: "translateX(30%)" }
-									: { width: "80%", transform: "translate(25%,5%)" }
-							}
-						/>
-					</div>
-					<div
-						className="alternate"
-						onClick={() => {
+						className="zoom"
+						onMouseDown={() => {
 							window.showPath(toggle, currentState);
 							setToggle(!toggle);
 						}}
 					>
 						<img
-							src={toggle ? hidePath : showPath}
-							alt={toggle ? "closed eye" : "eye"}
-							style={{ width: "110%", transform: "translate(-5%,-5%)" }}
-						/>
-					</div>
-				</div>
-				<div className="bottom-group">
-					<div
-						className="zoom"
-						onClick={() => {
-							window.animateZoom(isStopped);
-						}}
-					>
-						<img
 							src={reset}
 							alt="reset zoom"
-							style={{ width: "110%", transform: "translate(-5%,25%)" }}
+							style={{ transform: "translateY(25%)" }}
 						/>
 					</div>
 					<div
 						className="zoom"
-						onClick={() => {
+						onMouseDown={() => {
 							window.zoom(true);
+							counter = setInterval(() => {
+								window.zoom(true);
+							}, 150);
+						}}
+						onMouseUp={() => {
+							clearInterval(counter);
 						}}
 					>
 						<img src={zoomIn} alt="zoom in" />
 					</div>
 					<div
 						className="zoom"
-						onClick={() => {
+						onMouseDown={() => {
 							window.zoom(false);
+							counter = setInterval(() => {
+								window.zoom(false);
+							}, 150);
+						}}
+						onMouseUp={() => {
+							clearInterval(counter);
 						}}
 					>
 						<img src={zoomOut} alt="zoom out" />

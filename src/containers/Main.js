@@ -15,7 +15,7 @@ export default function Main() {
 			<Ellipse className="ellipse1" />
 			<Ellipse className="ellipse2" />
 			<Ellipse className="ellipse3" />
-			{isLoading ? <Loading /> : null}
+			{/* {isLoading ? <Loading /> : null} */}
 			<Navbar />
 			<div className="allContainer">
 				<div className="layout">
