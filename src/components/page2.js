@@ -11,7 +11,7 @@ export default class Page2 extends Component {
     }
 
     theSUBClass=()=>{
-        if(this.props.movie.nationality=="Thai dub")return "invalid"; 
+        if(this.props.movie.nationality=="Thai")return "invalid"; 
         if(this.props.sound=="Subtitle")return "selected";
         return "sound";
     }

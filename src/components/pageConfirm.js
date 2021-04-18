@@ -16,7 +16,7 @@ export default class PageConfirm extends Component {
             <div className="detail">
                 <div>3 May 2021</div>
                 <div className="stick"/>
-                <div>{info.time}</div>
+                <div>{info.time=="Morning"?"09 : 50":info.time=="Afternoon"?"13 : 25":"17 : 40"}</div>
             </div>
             <div className="detail">
                 <div>Theater 5</div>

@@ -10,22 +10,22 @@
     margin: 5% 0;
     height: 25%;
     border-radius: calc(var(--movie-width) * 30 / 440);
-    background: 
+    /* background: 
             radial-gradient(100.04% 253.78% at 0% 0%, 
-         rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.07) 100%);
+         rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.07) 100%); */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: 0.5s;
     animation-timing-function: ease;
+    font-size: calc(var(--movie-width) * 25 / 440);
 }
 
-.time p ,.page3 .selected p{
+.time p ,.page3 .selected p , .page3 .invalid p{
     height: fit-content;
-    width: fit-content;
-    margin-top: calc(var(--movie-width) * 10 / 440);
-    font-size: 110%;
+    margin-top: calc(var(--movie-width) * 8 / 440);  
+    text-align: center; 
 }
 
 .page3 > div div{
@@ -35,7 +35,7 @@
     height: 100%;
     border-radius: calc(var(--movie-width) * 30 / 440);
     /* background: linear-gradient(30deg  , #a31748,#da4328); */    
-    background: linear-gradient(60deg ,#410280 , #11dd2c);
+    background: linear-gradient(45deg ,#6e00db , #d6004b);
     /* background: linear-gradient(45deg ,#410280 , #dd1158); */
     transition: 0.5s;
     opacity: 0;
@@ -43,14 +43,15 @@
 
 .time:hover {
     transition: 0.2s;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255) inset;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }
 
 .page3 .selected div{
     transition: 0.5s;
     opacity: 1;
     /* background: linear-gradient(60deg  , #a31748,#da4328);    */
-    background: linear-gradient(60deg ,#7f0bb4 , #ff7300);
+    background: linear-gradient(60deg ,#6e00db , #d6004b);
+    filter: brightness(90%);
 }
 
 .page3 .selected {
@@ -61,12 +62,18 @@
 .page3 img {
     /* position: absolute; */
     /* background: red; */
-    height: calc(var(--movie-width) * 40 / 440);
+    height: calc(var(--movie-width) * 50 / 440);
     /* width: calc(var(--movie-width) * 40 / 440); */
 }
 
+.page3 :nth-child(1) img{
+    height: calc(var(--movie-width) * 54 / 440);
+    /* width: calc(var(--movie-width) * 50 / 440); */
+
+}
+
 .page3 :nth-child(2) img{
-    height: calc(var(--movie-width) * 50 / 440);
+    height: calc(var(--movie-width) * 57 / 440);
     /* width: calc(var(--movie-width) * 50 / 440); */
 
 }

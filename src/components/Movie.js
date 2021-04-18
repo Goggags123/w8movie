@@ -83,7 +83,8 @@ export default class Movie extends Component {
       movie: -1,
       step:1,
       right:false,
-      str:""
+      str:"",
+      confirmed:false
     };
   }
 
@@ -98,7 +99,7 @@ export default class Movie extends Component {
 
   }
   goRight = () => {
-      if(this.state.step==5)this.setState({str:this.state.str+"confirm"})
+      if(this.state.step==5)this.kept("confirm","",true);
       this.setState({step:this.state.step+1});
   };
 
@@ -133,31 +134,41 @@ export default class Movie extends Component {
   }
 
   kept = (state,value,boolean) => {
-    //        setInput={setInput}
-		// 				setState={setState}
-		// 				setOutput={setOutput}
-		// 				currentState={currentState}
-		// 				toggle={toggle}
     this.setState({str:this.state.str+value});
     if(state=="movie"){
       if(boolean)this.setState({movie:value,sound:"",time:"",seat:"",popcorn:"",cola:""});
       this.props.setState(transition(this.props.currentState,movieinfo[value].nationality,this.props.toggle));
+      this.props.setInput([...this.props.input,movieinfo[value].nationality]);
     }
     else if(state=="sound"){
       if(boolean)this.setState({sound:value,time:"",seat:"",popcorn:"",cola:""});
       this.props.setState(transition(this.props.currentState,value,this.props.toggle));
+      this.props.setInput([...this.props.input,value]);
     }
     else if(state=="time"){
       if(boolean)this.setState({time:value,seat:"",popcorn:"",cola:""});
+      this.props.setState(transition(this.props.currentState,value,this.props.toggle));
+      this.props.setInput([...this.props.input,value]);
     }
     else if(state=="seat"){
       if(boolean)this.setState({seat:value,popcorn:"",cola:""});
+      this.props.setState(transition(this.props.currentState,"Seat",this.props.toggle));
+      this.props.setInput([...this.props.input,"Seat"]);
     }
     else if(state=="popcorn"){
       this.setState({popcorn:value});
+      this.props.setState(transition(this.props.currentState,"Add-on",this.props.toggle));
+      this.props.setInput([...this.props.input,"Add-on"]);
     }
     else if(state=="cola"){
       this.setState({cola:value});
+      this.props.setState(transition(this.props.currentState,"Add-on",this.props.toggle));
+      this.props.setInput([...this.props.input,"Add-on"]);
+    }
+    else if(state=="confirm"){
+      this.setState({confirmed:true});
+      this.props.setState(transition(this.props.currentState,"Confirm",this.props.toggle));
+      this.props.setInput([...this.props.input,"Confirm"]);
     }
   }
 
@@ -190,29 +201,27 @@ export default class Movie extends Component {
         </ul>
 
         <div id="title">
-          {/* {this.stepDescription()} */}
-          {this.state.str}
+          {this.stepDescription()}
         </div>
         
         {this.getPage()}
         
-        {this.state.step==6?"":
+        {/* {this.state.step==6?"": */}
         <div className={this.state.step==1?"disabled left":"enabled left"} onClick={this.goLeft}>
           <img src={back}/>
         </div>
-        }
+        {/* } */}
         
-        {this.state.step!=6?
+        {/* {this.state.step!=6? */}
         <div  className={this.state.step==5?"confirm right":!this.checkRight()?"disabled right":"enabled right"} onClick={this.checkRight()?this.goRight:""}>
           {this.state.step==5?<p>confirm</p>:
             <img src={next}/>
           }
         </div>:
 
-        <div className="reset" onClick={this.reset}>reset</div>
+        {/* <div className="reset" onClick={this.reset}>reset</div>
 
-        }
-
+        } */}
       </div>
     );
   }

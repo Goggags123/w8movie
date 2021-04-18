@@ -6,48 +6,47 @@ import time3 from "../images/evening.png";
 
 export default class Page3 extends Component {
     keptTime=(value)=>{
-        if( value=="12 : 00" && (this.props.movie.nationality=="th" || this.props.sound=="SUB") ||
-            value=="14 : 20" && this.props.movie.nationality=="en" && this.props.sound=="TH" )
+        if( value=="Morning" && (this.props.movie.nationality=="Thai" || this.props.sound=="Subtitle") ||
+            value=="Afternoon" && this.props.movie.nationality=="Foreign" && this.props.sound=="Thai dub" )
             this.props.kept("time",value,false);
         else this.props.kept("time",value,true);
     }
 
     theMoringClass=()=>{
-        if(this.props.movie.nationality=="th" || this.props.sound=="SUB")return "invalid"; 
-        else if(this.props.time=="12 : 00")return "selected";
+        if(this.props.movie.nationality=="Thai" || this.props.sound=="Subtitle")return "invalid"; 
+        else if(this.props.time=="Morning")return "selected";
         else return "time";
     }
 
     theAfternoonClass=()=>{
-        if(this.props.movie.nationality=="en" && this.props.sound=="TH")return "invalid"; 
-        else if(this.props.time=="14 : 20")return "selected";
+        if(this.props.movie.nationality=="Foreign" && this.props.sound=="Thai dub")return "invalid"; 
+        else if(this.props.time=="Afternoon")return "selected";
         else return "time";
     }
 
     theEveningClass=()=>{
-        if(this.props.time=="16 : 40")return "selected";
+        if(this.props.time=="Evening")return "selected";
         else return "time";
     }
 
     render() {
     return(
         <div className="page3">
-
-            <div className={this.theMoringClass()} onClick={()=>this.keptTime("12 : 00")}>
+            <div className={this.theMoringClass()} onClick={()=>this.keptTime("Morning")}>
                 <img src={time1}/>
-                <p>12:00</p>
+                <p>{"09 : 50"}</p>
                 <div/>
             </div>
 
-            <div className={this.theAfternoonClass()} onClick={()=>this.keptTime("14 : 20")}>
+            <div className={this.theAfternoonClass()} onClick={()=>this.keptTime("Afternoon")}>
                 <img src={time2}/>
-                <p>14:20</p>
+                <p>{"13 : 25"}</p>
                 <div/>
             </div>
 
-            <div className={this.theEveningClass()} onClick={()=>this.keptTime("16 : 40")}>
+            <div className={this.theEveningClass()} onClick={()=>this.keptTime("Evening")}>
                 <img src={time3}/>
-                <p>16:40</p>
+                <p>{"17 : 40"}</p>
                 <div/>
             </div>
             
