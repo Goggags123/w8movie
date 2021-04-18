@@ -10,38 +10,52 @@
     backdrop-filter: blur(3rem);
 }
 
-.zoom {
-    cursor: pointer;
+.bottom-group {
+    top: 65%;
 }
 
-.group {
+.top-group {
+    top: 2%;
+}
+
+.top-group,
+.bottom-group {
     display: flex;
     flex-direction: column;
     width: max-content;
-    height:max-content;
-    position:absolute;
-    top: 68%;
-    right:3.5vw;
-    float:right;
+    height: max-content;
+    position: absolute;
+    right: 3.5vw;
+    float: right;
     z-index: 2;
 }
 
+.alternate {
+    background-color: #FF6C00;
+}
+
 .zoom {
-    border-radius: 50%;
-    padding: 30%;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin:0 0 30% 0;
     backdrop-filter: blur(3rem);
     background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.49) 0%, rgba(255, 255, 255, 0.07) 100%);
 }
-.zoom img {
-    /* height: 100%; */
+
+.zoom,
+.alternate {
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 40%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 0 30% 0;
+}
+
+.zoom img, .alternate img {
     width: 100%;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
+
 .panel {
     position:relative;
     /* height: 30rem; */

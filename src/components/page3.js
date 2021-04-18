@@ -32,7 +32,6 @@ export default class Page3 extends Component {
     render() {
     return(
         <div className="page3">
-
             <div className={this.theMoringClass()} onClick={()=>this.keptTime("Morning")}>
                 <img src={time1}/>
                 <p>{"09 : 50"}</p>

@@ -222,7 +222,6 @@ export default class Movie extends Component {
         {/* <div className="reset" onClick={this.reset}>reset</div>
 
         } */}
-
       </div>
     );
   }
