@@ -80,6 +80,7 @@
     margin: auto;
     border-radius: calc(var(--movie-width) * 30 / 440);
     background: linear-gradient(60deg ,#6e00db , #d6004b);
+    filter: brightness(90%);
     /* background: linear-gradient(45deg ,#43087D , #c91a57); */
     opacity: 1;
     transition: 0.5s;

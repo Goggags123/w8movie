@@ -51,6 +51,7 @@
     opacity: 1;
     /* background: linear-gradient(60deg  , #a31748,#da4328);    */
     background: linear-gradient(60deg ,#6e00db , #d6004b);
+    filter: brightness(90%);
 }
 
 .page3 .selected {
