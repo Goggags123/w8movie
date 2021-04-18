@@ -1,0 +1,93 @@
+
+
+
+.pageC{
+    color: #f4f4f4;
+    animation: pagevisit 1s 1 linear both;
+}
+
+#movieSelectedPic{
+    width: calc(var(--movie-width) * 200 / 440); 
+    box-shadow: 2px 2px 7px 1px #1e162b;   
+    border-radius: calc(var(--movie-width) * 15 / 440);  
+}
+
+.pageC .name {
+    width: 100%;
+    text-align: center;
+    font-size: calc(var(--movie-width) * 35 / 440);
+    margin-top: calc(var(--movie-width) * 15 / 440);
+    margin-bottom: calc(var(--movie-width) * 5 / 440);
+}
+
+.pageC .detail {
+    width: 100%;
+    text-align: center;
+    font-size: calc(var(--movie-width) * 20 / 440);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: calc(var(--movie-width) * 5 / 440) 0;
+}
+
+.pageC .stick{
+    border-right: solid 1px rgba(255, 255, 255, 0.7);
+    margin: 0 calc(var(--movie-width) * 20 / 440);
+}
+
+.pageC .addOn ,.added{    
+    cursor: pointer;
+    border-radius: calc(var(--movie-width) * 15 / 440);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+    width: calc(var(--movie-width) * 100 / 440);
+    height: calc(var(--movie-width) * 100 / 440);
+    padding: calc(var(--movie-width) * 10 / 440);
+    margin: calc(var(--movie-width) * 15 / 440);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transition: 0.5s;
+}
+
+.pageC .addOn:hover ,.added:hover {
+    box-shadow:0 0 0 1px white inset;
+}
+
+.pageC .allAddOn {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.allAddOn p {
+    position: relative;
+    height: fit-content;
+    font-size: calc(var(--movie-width) * 15 / 440);
+}
+
+#popcorn img{
+    width: calc(var(--movie-width) * 40 / 440);
+    height: calc(var(--movie-width) * 60 / 440);
+}
+
+#cola img {
+    width: calc(var(--movie-width) * 56 / 440);
+    height: calc(var(--movie-width) * 60 / 440);
+}
+
+.pageC .line {
+    align-self: center;
+    background:rgba(255, 255, 255, 0.5);
+    height: 1px;
+    width: 30%;
+    margin: 0 calc(var(--movie-width) * 20 / 440);
+}
+
+.added , .added:hover{
+    background: rgba(255, 255, 255, 0.7);
+}
+.added p{
+    color: #23113B;
+}

@@ -1,5 +1,5 @@
-# Theory of computation project
-A website for simulating the process of booking movies seats built with GoJS along with ReactJS.
+# W8Movie
+A website for simulating the process of booking movies seats built with GoJS along with ReactJS. It was developed in **Theory of Computation** course
 
 Our team members:
 - [Goggags123](https://github.com/Goggags123): Frontend developer

@@ -17,6 +17,7 @@ export default function Main() {
 			<Ellipse className="ellipse3" />
 			{isLoading ? <Loading /> : null}
 			<Navbar />
+			<div className="allContainer">
 			<div className="layout">
 				<div className="dfa">
 					<p className="text">Output</p>
@@ -31,8 +32,9 @@ export default function Main() {
 					<p className="text">Input</p>
 					<div className="container">{input}</div>
 				</div>
-				<div style={{ margin: "1% 1% 0 0" }}>
-					<Movie
+			</div>
+			</div>
+				<Movie 
 						setInput={setInput}
 						setState={setState}
 						setOutput={setOutput}
