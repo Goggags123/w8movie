@@ -40,6 +40,7 @@ export let nodeDataArray = [
 ];
 
 export let linkDataArray = [
+	{points:[-50,485,0,485], from:-1, to:0},
 	////////////////////////////////////////(0) Start//////////////////////////////////////////
 	{
 		from: 0,
@@ -49,7 +50,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 25),
+		offset: new go.Point(20, 15),
 	},
 	{
 		from: 0,
@@ -131,7 +132,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 15),
+		offset: new go.Point(0, 20),
 	},
 	{
 		from: 3,
@@ -147,6 +148,9 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        points: [440, 150, 440, 355, 214, 355, 214, 676] ,
+		segmentIndex: -1,
+		offset: new go.Point(10, 25),
 	},
 	{
 		from: 3,
@@ -178,6 +182,9 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        points:[432, 450, 432, 240, 218, 240, 218, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(0, -20),
 	},
 	{
 		from: 4,
@@ -191,8 +198,9 @@ export let linkDataArray = [
 		from: 4,
 		to: 5,
 		label: "Subtitle",
-		fromSpot: "BottomSide",
-		toSpot: "TopSide",
+		fromSpot: "LeftSide",
+		toSpot: "LeftSide",
+        fromEndSegmentLength:60
 	},
 	{
 		from: 4,
@@ -224,8 +232,9 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "LeftSide",
 		toSpot: "BottomSide",
-		// fromEndSegmentLength:20,
-		toEndSegmentLength: 20,
+        points: [400, 860, 360, 860, 360, 230, 205, 230, 205, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(20, -20),
 	},
 	{
 		from: 5,
@@ -239,8 +248,9 @@ export let linkDataArray = [
 		from: 5,
 		to: 4,
 		label: "Thai dub",
-		fromSpot: "TopSide",
-		toSpot: "BottomSide",
+		fromSpot: "LeftSide",
+		toSpot: "LeftSide",
+        fromEndSegmentLength:50
 	},
 	{
 		from: 5,
@@ -260,11 +270,11 @@ export let linkDataArray = [
 	{
 		from: 6,
 		to: 6,
-		label: "Afternoon, Subtitle,\nMorning, Add-on,\nConfirm",
+		label: "Afternoon, Subtitle,\nMorning, Add-on, Confirm",
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 20),
+		offset: new go.Point(-50, 50),
 	},
 	{
 		from: 6,
@@ -282,6 +292,9 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "LeftSide",
 		toSpot: "TopSide",
+        points: [600, 50, 550, 50,550, 350, 222, 350, 222, 676] ,
+		segmentIndex: -1,
+		offset: new go.Point(0, 25),
 	},
 	{
 		from: 6,
@@ -297,6 +310,8 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, 30),
 	},
 	{
 		from: 6,
@@ -320,7 +335,10 @@ export let linkDataArray = [
 		to: 1,
 		label: "Thai",
 		fromSpot: "BottomSide",
-		toSpot: "BottomSide",
+		toSpot: "BottomSide",        
+        points:[625, 223, 625, 275, 264, 275, 264, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-70, -20),
 	},
 	{
 		from: 7,
@@ -328,6 +346,9 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        points: [645, 224,645, 345, 230, 345, 230, 676] ,
+		segmentIndex: -1,
+		offset: new go.Point(-10, 25),
 	},
 	{
 		from: 7,
@@ -343,6 +364,8 @@ export let linkDataArray = [
 		label: "Afternoon",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, -35),
 	},
 	{
 		from: 7,
@@ -359,14 +382,17 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 10),
+		offset: new go.Point(-40, 30),
 	},
 	{
 		from: 8,
 		to: 1,
 		label: "Thai",
 		fromSpot: "TopSide",
-		toSpot: "BottomSide",
+		toSpot: "BottomSide",        
+        points:[635, 370, 635, 260, 243, 260, 243, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-40, -20),
 	},
 	{
 		from: 8,
@@ -374,6 +400,10 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "LeftSide",
 		toSpot: "BottomSide",
+		fromEndSegmentLength: 30,
+		toEndSegmentLength: 330,
+		segmentIndex: -1,
+		offset: new go.Point(-50, -30),
 	},
 	{
 		from: 8,
@@ -389,6 +419,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "LeftSide",
 		toSpot: "TopSide",
+        points: [600, 430,555, 430, 555, 700,415, 700, 415, 825] ,
+		segmentIndex: -1,
+		offset: new go.Point(10, 25),
 	},
 	{
 		from: 8,
@@ -396,6 +429,8 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, 30),
 	},
 	{
 		from: 8,
@@ -412,7 +447,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 10),
+		offset: new go.Point(-10, 20),
 	},
 	{
 		from: 9,
@@ -420,6 +455,9 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "RightSide",
 		toSpot: "BottomSide",
+        points:[670, 545, 725, 545, 725, 280,270, 280, 270, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-80, -20),
 	},
 	{
 		from: 9,
@@ -427,10 +465,10 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "LeftSide",
 		toSpot: "BottomSide",
-        fromEndSegmentLength:20,
-		toEndSegmentLength: 300,
+		fromEndSegmentLength: 20,
+		toEndSegmentLength: 310,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(-40, -30),
 	},
 	{
 		from: 9,
@@ -446,6 +484,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "LeftSide",
 		toSpot: "TopSide",
+        points: [600, 580,535, 580, 535, 695,423, 695, 423, 825] ,
+		segmentIndex: -1,
+		offset: new go.Point(0, 25),
 	},
 	{
 		from: 9,
@@ -453,6 +494,8 @@ export let linkDataArray = [
 		label: "Morning",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, -35),
 	},
 	{
 		from: 9,
@@ -469,14 +512,17 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 10),
+		offset: new go.Point(-10, 20),
 	},
 	{
 		from: 10,
 		to: 1,
 		label: "Thai",
 		fromSpot: "LeftSide",
-		toSpot: "BottomSide",
+		toSpot: "BottomSide",     
+        points:[600, 765, 580, 765, 580, 245,224, 245, 224, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-10, -20),
 	},
 	{
 		from: 10,
@@ -484,13 +530,20 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "LeftSide",
 		toSpot: "BottomSide",
+        fromEndSegmentLength:40,
+		toEndSegmentLength: 250,
+		segmentIndex: -1,
+		offset: new go.Point(-10, -30),
 	},
 	{
 		from: 10,
 		to: 4,
 		label: "Thai dub",
-		fromSpot: "LeftSide",
+		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        points:[637, 750,637, 610, 416, 610, 416, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(20, -30),
 	},
 	{
 		from: 10,
@@ -506,6 +559,8 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, 30),
 	},
 	{
 		from: 10,
@@ -522,7 +577,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 10),
+		offset: new go.Point(-10, 20),
 	},
 	{
 		from: 11,
@@ -530,6 +585,9 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "LeftSide",
 		toSpot: "BottomSide",
+        points:[600, 920, 545, 920, 545, 235, 212, 235, 212, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(10, -20),
 	},
 	{
 		from: 11,
@@ -539,14 +597,17 @@ export let linkDataArray = [
 		toSpot: "BottomSide",
 		toEndSegmentLength: 190,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(20, -30),
 	},
 	{
 		from: 11,
 		to: 4,
 		label: "Thai dub",
 		fromSpot: "LeftSide",
-		toSpot: "BottomSide",
+		toSpot: "BottomSide", 
+        points:[600, 935,585, 935,585, 625, 440, 625, 440, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-10, -30),
 	},
 	{
 		from: 11,
@@ -562,6 +623,8 @@ export let linkDataArray = [
 		label: "Afternooon",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        segmentIndex:-1,
+		offset: new go.Point(-10, -35),
 	},
 	{
 		from: 11,
@@ -578,7 +641,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
-		offset: new go.Point(0, 10),
+		offset: new go.Point(-20, 20),
 	},
 	{
 		from: 12,
@@ -588,7 +651,7 @@ export let linkDataArray = [
 		toSpot: "TopSide",
 		toEndSegmentLength: 90,
 		segmentIndex: -1,
-		offset: new go.Point(0, 20),
+		offset: new go.Point(-5, 20),
 	},
 	{
 		from: 12,
@@ -596,6 +659,9 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        points: [825, 148,825, 340, 238, 340, 238, 676] ,
+		segmentIndex: -1,
+		offset: new go.Point(-20, 25),
 	},
 	{
 		from: 12,
@@ -636,6 +702,9 @@ export let linkDataArray = [
 		label: "Confirm",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        toEndSegmentLength:290,
+        segmentIndex:-1,
+        offset: new go.Point(70,-25)
 	},
 
 	////////////////////////////////////////(13) Foreign+Thai dub+Seat//////////////////////////////////////////
@@ -653,7 +722,10 @@ export let linkDataArray = [
 		to: 1,
 		label: "Thai",
 		fromSpot: "TopSide",
-		toSpot: "BottomSide",
+		toSpot: "BottomSide",        
+        points:[835, 445, 835, 265, 250, 265, 250, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-50, -20),
 	},
 	{
 		from: 13,
@@ -661,10 +733,10 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "RightSide",
 		toSpot: "BottomSide",
-        fromEndSegmentLength:20,
-		toEndSegmentLength: 280,
+		fromEndSegmentLength: 20,
+		toEndSegmentLength: 290,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(-30, -30),
 	},
 	{
 		from: 13,
@@ -672,6 +744,9 @@ export let linkDataArray = [
 		label: "Thai dub",
 		fromSpot: "BottomSide",
 		toSpot: "BottomSide",
+        points:[820, 523,820, 630, 448, 630, 448, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-20, -30),
 	},
 	{
 		from: 13,
@@ -679,6 +754,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        points: [832, 520, 832, 690,431, 690, 431, 825] ,
+		segmentIndex: -1,
+		offset: new go.Point(-10, 25),
 	},
 	{
 		from: 13,
@@ -702,13 +780,18 @@ export let linkDataArray = [
 		label: "Add-on",
 		fromSpot: "RightSide",
 		toSpot: "LeftSide",
+        points:[870,475,1000,475],
+        segmentIndex:-1,
+		offset: new go.Point(0, -10),
 	},
 	{
 		from: 13,
 		to: 200,
 		label: "Confirm",
 		fromSpot: "BottomSide",
-		toSpot: "TopSide",
+		toSpot: "BottomSide",
+		fromEndSegmentLength:50,
+		offset: new go.Point(0, -30),
 	},
 	////////////////////////////////////////(14) Thai+Subtitle+Seat//////////////////////////////////////////
 	{
@@ -726,6 +809,10 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "RightSide",
 		toSpot: "BottomSide",
+        points:[870, 850, 900, 850, 900, 250, 230, 250, 230, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-20, -20),
+		
 	},
 	{
 		from: 14,
@@ -735,7 +822,7 @@ export let linkDataArray = [
 		toSpot: "BottomSide",
 		toEndSegmentLength: 210,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(10, -30),
 	},
 	{
 		from: 14,
@@ -743,6 +830,9 @@ export let linkDataArray = [
 		label: "Thai dub",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        points:[842, 825,842, 615, 424, 615, 424, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(10, -30),
 	},
 	{
 		from: 14,
@@ -750,9 +840,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "BottomSide",
 		toSpot: "BottomSide",
-		toEndSegmentLength: 180,
+		toEndSegmentLength: 200,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(40, -30),
 	},
 	{
 		from: 14,
@@ -776,6 +866,9 @@ export let linkDataArray = [
 		label: "Add-on",
 		fromSpot: "RightSide",
 		toSpot: "LeftSide",
+        points:[870,865,1000,865],
+        segmentIndex:-1,
+		offset: new go.Point(0, -10),
 	},
 	{
 		from: 14,
@@ -783,6 +876,7 @@ export let linkDataArray = [
 		label: "Confirm",
 		fromSpot: "BottomSide",
 		toSpot: "BottomSide",
+        offset: new go.Point(60,30)
 	},
 	////////////////////////////////////////(15) Thai+Thai dub+Seat+Add-on//////////////////////////////////////////
 	{
@@ -792,7 +886,7 @@ export let linkDataArray = [
 		routing: "curve",
 		fromSpot: topRightOffset,
 		toSpot: topLeftOffset,
-		offset: new go.Point(0, 25),
+		offset: new go.Point(-10, 25),
 	},
 	{
 		from: 15,
@@ -802,14 +896,17 @@ export let linkDataArray = [
 		toSpot: "TopSide",
 		toEndSegmentLength: 110,
 		segmentIndex: -1,
-		offset: new go.Point(0, 20),
+		offset: new go.Point(-15, 20),
 	},
 	{
 		from: 15,
 		to: 2,
 		label: "Foreign",
 		fromSpot: "BottomSide",
-		toSpot: "TopSide",
+		toSpot: "TopSide",        
+        points: [1052, 148,1052, 335, 246, 335, 246, 676] ,
+		segmentIndex: -1,
+		offset: new go.Point(-30, 25),
 	},
 	{
 		from: 15,
@@ -827,6 +924,7 @@ export let linkDataArray = [
 		label: "Afternoon",
 		fromSpot: "TopSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 15,
@@ -834,6 +932,7 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 15,
@@ -867,6 +966,9 @@ export let linkDataArray = [
 		label: "Thai",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        points:[1043, 450, 1043, 270, 257, 270, 257, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-60, -20),
 	},
 	{
 		from: 16,
@@ -874,9 +976,9 @@ export let linkDataArray = [
 		label: "Foreign",
 		fromSpot: "RightSide",
 		toSpot: "BottomSide",
-		toEndSegmentLength: 260,
+		toEndSegmentLength: 270,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(-20, -30),
 	},
 	{
 		from: 16,
@@ -884,6 +986,9 @@ export let linkDataArray = [
 		label: "Thai dub",
 		fromSpot: "BottomSide",
 		toSpot: "BottomSide",
+        points:[1020, 523,1020, 635, 456, 635, 456, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-30, -30),
 	},
 	{
 		from: 16,
@@ -891,6 +996,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "BottomSide",
 		toSpot: "TopSide",
+        points: [1052, 523, 1052, 685,439, 685, 439, 825] ,
+		segmentIndex: -1,
+		offset: new go.Point(-20, 25),
 	},
 	{
 		from: 16,
@@ -898,6 +1006,7 @@ export let linkDataArray = [
 		label: "Morning",
 		fromSpot: "TopSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 16,
@@ -905,14 +1014,17 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 16,
 		to: 13,
 		label: "Seat",
-		offset: new go.Point(0, 10),
 		fromSpot: "LeftSide",
 		toSpot: "RightSide",
+        points:[1000,490,870,490],
+        segmentIndex:-1,
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 16,
@@ -920,8 +1032,11 @@ export let linkDataArray = [
 		label: "Confirm",
 		fromSpot: "RightSide",
 		toSpot: "LeftSide",
+		segmentIndex:-1,
+		offset: new go.Point(20, -10),
+        points:[1070,490,1200,490],
 	},
-	////////////////////////////////////////(17) Foreign+Subtite+Seat+Add-on//////////////////////////////////////////
+	////////////////////////////////////////(17) Foreign+Subtitle+Seat+Add-on//////////////////////////////////////////
 	{
 		from: 17,
 		to: 17,
@@ -935,8 +1050,12 @@ export let linkDataArray = [
 		from: 17,
 		to: 1,
 		label: "Thai",
-		fromSpot: "BottomSide",
+		fromSpot: "RightSide",
 		toSpot: "BottomSide",
+        points:[1075, 860, 1130, 860, 1130, 255, 236, 255, 236, 148,] ,
+		segmentIndex: -1,
+		offset: new go.Point(-30, -20),
+		
 	},
 	{
 		from: 17,
@@ -952,8 +1071,11 @@ export let linkDataArray = [
 		from: 17,
 		to: 4,
 		label: "Thai dub",
-		fromSpot: "BottomSide",
+		fromSpot: "TopSide",
 		toSpot: "BottomSide",
+        points:[1045, 825,1045, 620, 432, 620, 432, 523,] ,
+		segmentIndex: -1,
+		offset: new go.Point(0, -30),
 	},
 	{
 		from: 17,
@@ -961,9 +1083,9 @@ export let linkDataArray = [
 		label: "Subtitle",
 		fromSpot: "BottomSide",
 		toSpot: "BottomSide",
-		toEndSegmentLength: 160,
+		toEndSegmentLength: 180,
 		segmentIndex: -1,
-		offset: new go.Point(0, -30),
+		offset: new go.Point(10, -30),
 	},
 	{
 		from: 17,
@@ -971,6 +1093,7 @@ export let linkDataArray = [
 		label: "Afternoon",
 		fromSpot: "TopSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 17,
@@ -978,14 +1101,17 @@ export let linkDataArray = [
 		label: "Evening",
 		fromSpot: "BottomSide",
 		toSpot: "RightSide",
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 17,
 		to: 14,
 		label: "Seat",
-		offset: new go.Point(0, 10),
 		fromSpot: "LeftSide",
 		toSpot: "RightSide",
+        points:[1000,880,870,880],
+        segmentIndex:-1,
+		offset: new go.Point(0, 10),
 	},
 	{
 		from: 17,
@@ -993,5 +1119,26 @@ export let linkDataArray = [
 		label: "Confirm",
 		fromSpot: "RightSide",
 		toSpot: "LeftSide",
+	},
+    ////////////////////////////////////////(200) Confirm//////////////////////////////////////////
+	{
+		from: 200,
+		to: 404,
+		label: "Thai, Foreign,\nThai dub, Subtitle,\nMorning, Afternoon,\nEvening, Seat,\nAdd-on, Confirm",
+		fromSpot: "Right",
+		toSpot: "Left",
+        segmentIndex:2,
+		offset: new go.Point(0, -40),
+	},
+    ////////////////////////////////////////(404) Trap//////////////////////////////////////////
+	{
+		from: 404,
+		to: 404,
+		label: "Thai, Foreign,\nThai dub, Subtitle,\nMorning, Afternoon,\nEvening, Seat,\nAdd-on, Confirm",
+        routing: "curve",
+		fromSpot: topRight,
+		toSpot: topLeft,
+        // segmentIndex:2,
+		offset: new go.Point(40, 10),
 	},
 ];

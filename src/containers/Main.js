@@ -15,7 +15,7 @@ export default function Main() {
 			<Ellipse className="ellipse1" />
 			<Ellipse className="ellipse2" />
 			<Ellipse className="ellipse3" />
-			{/* {isLoading ? <Loading /> : null} */}
+			{isLoading ? <Loading /> : null}
 			<Navbar />
 			<div className="allContainer">
 			<div className="layout">
@@ -26,8 +26,8 @@ export default function Main() {
 						currentState={currentState}
 						setLoading={setLoading}
 						setState={setState}
-						toggle={toggle}
-						setToggle={setToggle}
+						toggle = {toggle}
+						setToggle = {setToggle}
 					/>
 					<p className="text">Input</p>
 					<div className="container">{input}</div>
@@ -39,9 +39,10 @@ export default function Main() {
 						setState={setState}
 						setOutput={setOutput}
 						currentState={currentState}
-						toggle={toggle}
-				/>
-			<div style={{color : "white"}}>{currentState}</div>
+						toggle = {toggle}
+					/>
+				</div>
+			</div>
 		</Fragment>
 	);
 }
