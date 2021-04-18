@@ -307,7 +307,9 @@ const DFA = Machine({
     }
 });
 export const transition = (currentState,alphabet,toggle) =>{
-    window.showPath(toggle,currentState);
-    window.animateColorAndFraction(currentState);
-    return DFA.transition(currentState,alphabet).value;
+    const nextState = DFA.transition(currentState,alphabet).value;
+    window.showPath(toggle,nextState);
+    window.animateColorAndFraction(nextState);
+    window.highlight(nextState);
+    return nextState;
 };
