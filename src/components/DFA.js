@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
