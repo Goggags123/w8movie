@@ -18,30 +18,29 @@ export default function Main() {
 			{/* {isLoading ? <Loading /> : null} */}
 			<Navbar />
 			<div className="allContainer">
-			<div className="layout">
-				<div className="dfa">
-					<p className="text">Output</p>
-					<div className="container">{output}</div>
-					<DFA
-						currentState={currentState}
-						setLoading={setLoading}
-						setState={setState}
-						toggle={toggle}
-						setToggle={setToggle}
-					/>
-					<p className="text">Input</p>
-					<div className="container">{input}</div>
+				<div className="layout">
+					<div className="dfa">
+						<p className="text">Output</p>
+						<div className="container">{output}</div>
+						<DFA
+							currentState={currentState}
+							setLoading={setLoading}
+							setState={setState}
+							toggle={toggle}
+							setToggle={setToggle}
+						/>
+						<p className="text">Input</p>
+						<div className="container">{input}</div>
+					</div>
 				</div>
 			</div>
-			</div>
-				<Movie 
-						setInput={setInput}
-						setState={setState}
-						setOutput={setOutput}
-						currentState={currentState}
-						toggle={toggle}
-				/>
-			<div style={{color : "white"}}>{currentState}</div>
+			<Movie
+				setInput={setInput}
+				setState={setState}
+				setOutput={setOutput}
+				currentState={currentState}
+				toggle={toggle}
+			/>
 		</Fragment>
 	);
 }
