@@ -56,7 +56,12 @@
     transition: 0.5s;
     opacity: 1;
     /* background: linear-gradient(60deg  , #a31748,#da4328);    */
+<<<<<<< Updated upstream
     background: linear-gradient(60deg ,#7f0bb4 , #ff7300);
+=======
+    background: linear-gradient(60deg ,#6e00db , #d6004b);
+    filter: brightness(90%);
+>>>>>>> Stashed changes
 }
 
 .page3 .selected {

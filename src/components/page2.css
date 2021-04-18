@@ -76,7 +76,12 @@
     bottom: 0;
     margin: auto;
     border-radius: calc(var(--movie-width) * 30 / 440);
+<<<<<<< Updated upstream
     background: linear-gradient(60deg ,#5c00b8 , #d6004b);
+=======
+    background: linear-gradient(60deg ,#6e00db , #d6004b);
+    filter: brightness(90%);
+>>>>>>> Stashed changes
     /* background: linear-gradient(45deg ,#43087D , #c91a57); */
     opacity: 1;
     transition: 0.5s;

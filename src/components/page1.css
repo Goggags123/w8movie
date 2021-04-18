@@ -260,7 +260,13 @@
     z-index: 0;
     content: "";
     position: absolute;
+<<<<<<< Updated upstream
     background: linear-gradient(135deg , #da4328 , #a31748);
+=======
+    background: linear-gradient(60deg , #6e00db , #d6004b);
+    /* background: linear-gradient(50deg , #9c00da , #d8004c); */
+    filter: brightness(90%);
+>>>>>>> Stashed changes
     width: 100%;
     height: 100%;
     animation: appear 0.5s 1 both;
