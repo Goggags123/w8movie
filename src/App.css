@@ -1,7 +1,7 @@
 :root {
   --dfa-width: 450px;
   --movie-width: 290px;
-  --movie-height: calc(var(--movie-width) * 90 / 44);
+  --movie-height: calc(var(--movie-width) * 80 / 44);
   --head-font: calc(var(--movie-width) * 20 / 440);
   --body-with: calc((var(--dfa-width) + var(--movie-width)));
 }
@@ -22,7 +22,7 @@ button {
 }
 
 
-.body {
+.body, body,.loading-body {
   position: relative;
   min-width: var(--body-with);
   min-height: var(--movie-height);
@@ -38,6 +38,10 @@ button {
   /* background-attachment: fixed; */
   display: flex;
   flex-direction: column;
+}
+
+.loading-body{  
+  flex-direction: row;
 }
 
 .ellipse1 {
@@ -107,7 +111,8 @@ div.dfa {
   /* background: #a1536e; */
   min-width: var(--dfa-width);
   width: calc(100% - var(--movie-width) - 2%);
-  height: var(--movie-height);
+  min-height: var(--movie-height);
+  height: 90%;
   z-index: 2;
   display: flex;
   flex-direction: column;

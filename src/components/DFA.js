@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
@@ -20,12 +20,11 @@ function initDiagram() {
 	const $ = go.GraphObject.make;
 	// set your license key here before creating the diagram: go.Diagram.licenseKey = "...";
 	const diagram = $(go.Diagram, {
-		isReadOnly:true,
-		allowSelect:false,
+		isReadOnly: true,
+		allowSelect: false,
 		model: $(go.GraphLinksModel, {
 			linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
 		}),
-		
 	});
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);
@@ -68,23 +67,30 @@ function initDiagram() {
 			shadowVisible: false,
 		},
 		$(
-			go.Shape,
-			"Circle",
-			{
-				fill: "#A64568",
-				stroke: "white",
-				strokeWidth: 3,
-				desiredSize: new go.Size(70, 70),
-			},
-			new go.Binding("fill", "color")
+			go.Panel,
+			"Spot",
+			$(
+				go.Shape,
+				"Circle",
+				{
+					fill: "#A64568",
+					stroke: "white",
+					strokeWidth: 3,
+					desiredSize: new go.Size(70, 70),
+				},
+				new go.Binding("fill", "color")
+			)
 		),
 		$(
 			go.TextBlock,
 			{
+				overflow: go.TextBlock.OverflowEllipsis,
+				wrap: go.TextBlock.None,
 				stroke: "white",
 				font: "Normal 0.75rem Roboto",
 				textAlign: "center",
 			},
+			new go.Binding("font"),
 			new go.Binding("text", "text").makeTwoWay()
 		)
 	);
@@ -99,13 +105,24 @@ function initDiagram() {
 			isShadowed: true,
 			shadowColor: "white",
 			shadowOffset: new go.Point(0, 0),
+			opacity: 0.5,
 		},
 		new go.Binding("routing"),
 		new go.Binding("fromEndSegmentLength"),
 		new go.Binding("toEndSegmentLength"),
 		new go.Binding("points"),
-		$(go.Shape, { stroke: "white", strokeWidth: 2 ,shadowVisible:false}),
-		$(go.Shape, { toArrow: "OpenTriangle", stroke: "white", strokeWidth: 2 ,shadowVisible:false}),
+
+		$(go.Shape, {
+			stroke: "white",
+			strokeWidth: 2,
+			shadowVisible: false,
+		}),
+		$(go.Shape, {
+			toArrow: "OpenTriangle",
+			stroke: "white",
+			strokeWidth: 2,
+			shadowVisible: false,
+		}),
 		$(go.Shape, "TenPointedBurst", {
 			name: "GLOW",
 			fill: "transparent",
@@ -149,7 +166,7 @@ function initDiagram() {
 			);
 		}
 	);
-	window.stopAnimation = (isStopped, currentState) => {
+	window.stopAnimation = (isStopped, currentState) => { //Stop animation
 		if (!isStopped) {
 			diagram.links.each(function (link) {
 				const glow = link.findObject("GLOW");
@@ -171,23 +188,49 @@ function initDiagram() {
 			node.shadowVisible = true;
 		});
 	};
-	window.animateColorAndFraction = (currentState) => {
+	window.highlightPart = (currentState, to, unHighlight) => { //Highlight link
+		if ("ontouchstart" in document.documentElement) return;
+		diagram.links.each(function (link) {
+			link.opacity = 0.5;
+			if (link.elt(2)) link.elt(2).opacity = 0;
+			if (!unHighlight) {
+				if (link.data.label === undefined) return;
+				if (
+					link.data.from != currentState ||
+					!link.data.label.includes(to) ||
+					link.data.label.includes(to + " dub")
+				)
+					return;
+			} else {
+				if (link.data.from != currentState) return;
+			}
+			link.opacity = 1;
+			link.elt(2).opacity = 1;
+		});
+		if (currentState == 0) diagram.findLinkForKey(-1).opacity = 1;
+	};
+	window.animateColorAndFraction = (currentState) => { //Animate pulsing
 		if (!diagram.animationManager.isEnabled) return;
 		var animation = new go.Animation();
 		diagram.links.each(function (link) {
 			const glow = link.findObject("GLOW");
 			glow.fill = "transparent";
 			glow.shadowVisible = false;
+			link.opacity = 0.5;
+			if (link.elt(2)) link.elt(2).opacity = 0;
 			if (link.data.from != currentState) return;
 			glow.fill = "white";
 			glow.shadowVisible = true;
 			animation.add(glow, "fraction", 0, 1);
 			animation.duration = 3000;
-			animation.runCount = Infinity; // Animate forever
+			animation.runCount = Infinity;
 			animation.start();
+			link.opacity = 1;
+			link.elt(2).opacity = 1;
 		});
+		if (currentState == 0) diagram.findLinkForKey(-1).opacity = 1;
 	};
-	window.zoom = (isZoomedIn) => {
+	window.zoom = (isZoomedIn) => { //Zoom
 		if (isZoomedIn) {
 			diagram.scale += 0.1;
 		} else {
@@ -195,7 +238,7 @@ function initDiagram() {
 		}
 	};
 	var zoomAnimation = new go.Animation();
-	window.animateZoom = (isStopped) => {
+	window.animateZoom = (isStopped) => { //Animate reset zoom
 		if (!zoomAnimation.isAnimating && diagram.scale != 1) {
 			if (isStopped) diagram.animationManager.isEnabled = true;
 			zoomAnimation = new go.Animation();
@@ -203,7 +246,7 @@ function initDiagram() {
 			zoomAnimation.start();
 		}
 	};
-	window.showPath = (toggle, currentState) => {
+	window.showPath = (toggle, currentState) => { //Show/Hide path
 		if (toggle) {
 			diagram.links.each(function (link) {
 				if (link.data.from != currentState) {
@@ -245,7 +288,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 	window.start = () => {
 		window.animateColorAndFraction(currentState);
 		window.highlight(currentState);
-	}
+	};
 	return (
 		<Fragment>
 			<div className="panel">
