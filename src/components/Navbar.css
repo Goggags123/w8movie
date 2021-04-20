@@ -1,0 +1,28 @@
+.navbar {
+    width: 100%;
+    height: 8%;
+    background: linear-gradient(270deg, #A0204C 0%, #282D4F 100%);
+    display: flex;
+    position: sticky;
+    z-index: 999;
+    justify-content: space-between;
+}
+
+p.title {
+    margin: auto 0 auto 10%;
+    color: #FF6C00;
+    font-style: normal;
+    font-size: 1.05rem;
+}
+
+img.logo {
+    width: 2.5rem;
+    margin: 0.25rem 0 0.25rem 0.5rem;
+}
+
+div.credit {
+    margin: auto 4% auto 0;
+    color:white;
+    display: flex;
+    cursor: pointer;
+}
