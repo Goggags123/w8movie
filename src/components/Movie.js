@@ -129,7 +129,7 @@ export default class Movie extends Component {
 		if (this.state.step > 4 ) return "ยืนยันการจอง";
 	};
 
-	getPage = () => {
+	getPage = (toggle) => {
 		if (this.state.step == 1)
 			return (
 				<Page1
@@ -137,6 +137,7 @@ export default class Movie extends Component {
 					movie={this.state.movie}
 					kept={this.kept}
 					currentState={this.props.currentState}
+					toggle={toggle}
 				/>
 			);
 		if (this.state.step == 2)
@@ -146,6 +147,7 @@ export default class Movie extends Component {
 					sound={this.state.sound}
 					kept={this.kept}
 					currentState={this.props.currentState}
+					toggle={toggle}
 				/>
 			);
 		if (this.state.step == 3)
@@ -156,6 +158,7 @@ export default class Movie extends Component {
 					time={this.state.time}
 					kept={this.kept}
 					currentState={this.props.currentState}
+					toggle={toggle}
 				/>
 			);
 		if (this.state.step == 4)
@@ -164,6 +167,7 @@ export default class Movie extends Component {
 					seat={this.state.seat}
 					kept={this.kept}
 					currentState={this.props.currentState}
+					toggle={toggle}
 				/>
 			);
 		if (this.state.step > 4)
@@ -175,6 +179,7 @@ export default class Movie extends Component {
 					confirm={this.goRight}
 					currentState={this.props.currentState}
 					step={this.state.step}
+					toggle={toggle}
 				/>
 			);
 	};
@@ -304,7 +309,7 @@ export default class Movie extends Component {
 					></li>
 				</ul>
 				<div id="title" style={this.state.step==6?{opacity:"0.2",transition:"0.1s"}:{}}>{this.stepDescription()}</div>
-				{this.getPage()}
+				{this.getPage(this.props.toggle)}
 				<div
 					className={this.state.step == 1 || (this.state.step==6&&!this.state.ok)? "disabled left" : "enabled left"}
 					onClick={this.goLeft}
@@ -322,11 +327,11 @@ export default class Movie extends Component {
 					onClick={this.state.ok?this.reset:this.checkRight() ? this.goRight : null}
 					onMouseEnter={() => {
 						if (this.state.step == 5)
-							window.highlightPart(this.props.currentState, "Honeymoon", false);
+							window.highlightPart(this.props.currentState, "Honeymoon", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
 						if (this.state.step == 5)
-							window.highlightPart(this.props.currentState, "Honeymoon", true);
+							window.highlightPart(this.props.currentState, "Honeymoon", true,this.props.toggle);
 					}}
 				>
 					{this.state.ok? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}

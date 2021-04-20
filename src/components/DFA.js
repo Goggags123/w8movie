@@ -166,7 +166,8 @@ function initDiagram() {
 			);
 		}
 	);
-	window.stopAnimation = (isStopped, currentState) => { //Stop animation
+	window.stopAnimation = (isStopped, currentState, toggle) => {
+		//Stop animation
 		if (!isStopped) {
 			diagram.links.each(function (link) {
 				const glow = link.findObject("GLOW");
@@ -177,7 +178,7 @@ function initDiagram() {
 			diagram.animationManager.isEnabled = false;
 		} else {
 			diagram.animationManager.isEnabled = true;
-			window.animateColorAndFraction(currentState);
+			window.animateColorAndFraction(currentState, toggle);
 		}
 	};
 	window.highlight = (currentState) => {
@@ -188,10 +189,12 @@ function initDiagram() {
 			node.shadowVisible = true;
 		});
 	};
-	window.highlightPart = (currentState, to, unHighlight) => { //Highlight link
+	window.highlightPart = (currentState, to, unHighlight,toggle) => {
+		//Highlight link
 		if ("ontouchstart" in document.documentElement) return;
 		diagram.links.each(function (link) {
-			link.opacity = 0.5;
+			if (toggle) link.opacity = 0.5;
+			else link.opacity = 0;
 			if (link.elt(2)) link.elt(2).opacity = 0;
 			if (!unHighlight) {
 				if (link.data.label === undefined) return;
@@ -209,28 +212,30 @@ function initDiagram() {
 		});
 		if (currentState == 0) diagram.findLinkForKey(-1).opacity = 1;
 	};
-	window.animateColorAndFraction = (currentState) => { //Animate pulsing
+	window.animateColorAndFraction = (currentState, toggle) => {
+		//Animate pulsing
 		if (!diagram.animationManager.isEnabled) return;
 		var animation = new go.Animation();
 		diagram.links.each(function (link) {
 			const glow = link.findObject("GLOW");
 			glow.fill = "transparent";
 			glow.shadowVisible = false;
-			link.opacity = 0.5;
-			if (link.elt(2)) link.elt(2).opacity = 0;
+			if (toggle) link.opacity = 0.5;
+			else link.opacity = 0;
 			if (link.data.from != currentState) return;
 			glow.fill = "white";
 			glow.shadowVisible = true;
+			glow.opacity = 1;
 			animation.add(glow, "fraction", 0, 1);
 			animation.duration = 3000;
 			animation.runCount = Infinity;
 			animation.start();
 			link.opacity = 1;
-			link.elt(2).opacity = 1;
 		});
 		if (currentState == 0) diagram.findLinkForKey(-1).opacity = 1;
 	};
-	window.zoom = (isZoomedIn) => { //Zoom
+	window.zoom = (isZoomedIn) => {
+		//Zoom
 		if (isZoomedIn) {
 			diagram.scale += 0.1;
 		} else {
@@ -238,7 +243,8 @@ function initDiagram() {
 		}
 	};
 	var zoomAnimation = new go.Animation();
-	window.animateZoom = (isStopped) => { //Animate reset zoom
+	window.animateZoom = (isStopped) => {
+		//Animate reset zoom
 		if (!zoomAnimation.isAnimating && diagram.scale != 1) {
 			if (isStopped) diagram.animationManager.isEnabled = true;
 			zoomAnimation = new go.Animation();
@@ -246,20 +252,17 @@ function initDiagram() {
 			zoomAnimation.start();
 		}
 	};
-	window.showPath = (toggle, currentState) => { //Show/Hide path
-		if (toggle) {
-			diagram.links.each(function (link) {
-				if (link.data.from != currentState) {
-					link.opacity = 0;
-					return;
-				}
-				link.opacity = 1;
-			});
-		} else {
-			diagram.links.each(function (link) {
-				link.opacity = 1;
-			});
-		}
+	window.showPath = (toggle, currentState) => {
+		//Show/Hide path
+		diagram.links.each(function (link) {
+			link.opacity = 0.5;
+			if (link.data.from != currentState) {
+				if (toggle) link.opacity = 0;
+				return;
+			}
+			link.opacity = 1;
+			if (currentState == 0) diagram.findLinkForKey(-1).opacity = 1;
+		});
 	};
 	var count = 0;
 	diagram.addDiagramListener("InitialLayoutCompleted", () => {
@@ -286,7 +289,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 	let [isStopped, setStop] = useState(false);
 	window.setLoading = setLoading;
 	window.start = () => {
-		window.animateColorAndFraction(currentState);
+		window.animateColorAndFraction(currentState, toggle);
 		window.highlight(currentState);
 	};
 	return (
@@ -302,7 +305,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 					<div
 						className="alternate"
 						onClick={() => {
-							window.stopAnimation(isStopped, currentState);
+							window.stopAnimation(isStopped, currentState,toggle);
 							setStop(!isStopped);
 						}}
 					>

@@ -23,10 +23,10 @@ export default class Page2 extends Component {
 					className={this.props.sound == "Thai dub" ? "selected" : "sound"}
 					onClick={() => this.keptSound("Thai dub")}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Thai dub", false);
+						window.highlightPart(this.props.currentState, "Thai dub", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Thai dub", true);
+						window.highlightPart(this.props.currentState, "Thai dub", true,this.props.toggle);
 					}}
 				>
 					<div />
@@ -40,10 +40,10 @@ export default class Page2 extends Component {
 					className={this.theSUBClass()}
 					onClick={() => this.keptSound("Subtitle")}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Subtitle", false);
+						window.highlightPart(this.props.currentState, "Subtitle", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Subtitle", true);
+						window.highlightPart(this.props.currentState, "Subtitle", true,this.props.toggle);
 					}}
 				>
 					<div />

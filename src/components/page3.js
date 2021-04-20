@@ -50,10 +50,10 @@ export default class Page3 extends Component {
 					className={this.theMoringClass()}
 					onClick={() => this.keptTime("Morning")}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Morning", false);
+						window.highlightPart(this.props.currentState, "Morning", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Morning", true);
+						window.highlightPart(this.props.currentState, "Morning", true,this.props.toggle);
 					}}
 				>
 					<img src={time1} />
@@ -65,10 +65,10 @@ export default class Page3 extends Component {
 					className={this.theAfternoonClass()}
 					onClick={() => this.keptTime("Afternoon")}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Afternoon", false);
+						window.highlightPart(this.props.currentState, "Afternoon", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Afternoon", true);
+						window.highlightPart(this.props.currentState, "Afternoon", true,this.props.toggle);
 					}}
 				>
 					<img src={time2} />
@@ -80,10 +80,10 @@ export default class Page3 extends Component {
 					className={this.theEveningClass()}
 					onClick={() => this.keptTime("Evening")}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Evening", false);
+						window.highlightPart(this.props.currentState, "Evening", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Evening", true);
+						window.highlightPart(this.props.currentState, "Evening", true,this.props.toggle);
 					}}
 				>
 					<img src={time3} />

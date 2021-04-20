@@ -13,10 +13,10 @@ export default class Page4 extends Component {
 					className={this.props.seat == "Normal" ? "selected" : ""}
 					onClick={() => this.props.kept("seat", "Normal", true)}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Normal", false);
+						window.highlightPart(this.props.currentState, "Normal", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Normal", true);
+						window.highlightPart(this.props.currentState, "Normal", true,this.props.toggle);
 					}}
 				>
 					<img className="seat" src={normal} />
@@ -28,10 +28,10 @@ export default class Page4 extends Component {
 					className={this.props.seat == "Honeymoon" ? "selected" : ""}
 					onClick={() => this.props.kept("seat", "Honeymoon", true)}
 					onMouseEnter={() => {
-						window.highlightPart(this.props.currentState, "Honeymoon", false);
+						window.highlightPart(this.props.currentState, "Honeymoon", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
-						window.highlightPart(this.props.currentState, "Honeymoon", true);
+						window.highlightPart(this.props.currentState, "Honeymoon", true,this.props.toggle);
 					}}
 				>
 					<img className="seat" src={honeymoon} />
