@@ -4,6 +4,7 @@ import Ellipse from "../components/Ellipse";
 import Navbar from "../components/Navbar";
 import Movie from "../components/Movie";
 import Loading from "../components/Loading";
+import resetImg from "../images/reset.png";
 
 
 export default function Main() {

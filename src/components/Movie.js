@@ -14,6 +14,7 @@ import next from "../images/next.png";
 import back from "../images/back.png";
 import { transition } from "../utils/Machine";
 import { filter } from "minimatch";
+import resetImg from "../images/reset.png";
 const movieinfo = [
 	{
 		name: "Pee Mark",
@@ -247,16 +248,17 @@ export default class Movie extends Component {
 	};
 
 	reset = () => {
-		this.setState({
-			time: "",
-			seat: "",
-			sound: "",
-			cola: false,
-			popcorn: false,
-			movie: -1,
-			step: 1,
-			right: false,
-		});
+		// this.setState({
+		// 	time: "",
+		// 	seat: "",
+		// 	sound: "",
+		// 	cola: false,
+		// 	popcorn: false,
+		// 	movie: -1,
+		// 	step: 1,
+		// 	right: false,
+		// });
+		window.location.reload(false);
 	};
 
 	render() {
@@ -314,10 +316,10 @@ export default class Movie extends Component {
 						this.state.step == 5 && !this.state.confirmed
 							? "confirm right"
 							: !this.checkRight()
-							? "disabled right"
+							? this.state.ok?"enabled right":"disabled right"
 							: "enabled right"
 					}
-					onClick={this.checkRight() ? this.goRight : null}
+					onClick={this.state.ok?this.reset:this.checkRight() ? this.goRight : null}
 					onMouseEnter={() => {
 						if (this.state.step == 5)
 							window.highlightPart(this.props.currentState, "Honeymoon", false);
@@ -327,7 +329,7 @@ export default class Movie extends Component {
 							window.highlightPart(this.props.currentState, "Honeymoon", true);
 					}}
 				>
-					{this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
+					{this.state.ok? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
 				</div>
 				:
 				{this.state.step>5 ? <PageSuccess step={this.state.step} next={()=>this.setState({step:this.state.step+1,ok:true})}/>:""}
