@@ -9,7 +9,7 @@ export default class PageSuccess extends Component {
                 <div className={this.props.step==6?"on success":"off success"}>
                     <div>
                         <img src={successImg} />
-                        <p>Your order is successfully !</p>
+                        <p>Your order is successful !</p>
                     </div>
                     <div onClick={()=>this.props.next()}>
                         <p>OK</p>
