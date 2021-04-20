@@ -10,7 +10,6 @@
     justify-content: space-between;
     font-family: Roboto;
     font-style: normal;
-    /* background-color: #282D4F; */
 }
 
 .movie::after {
@@ -20,12 +19,6 @@
     width: 100%;
     height: 100%;
     border-radius: calc(var(--movie-width) * 30 / 440);
-    /* backdrop-filter: blur(30px);
-    background: 
-        radial-gradient(100.04% 253.78% at 0% 0%, 
-        rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.1) 100%);  
-    background: rgba(255, 255, 255, 0.1);        
-    box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.25); */
 
 }
 
@@ -95,18 +88,19 @@
 
 
 .head .completeStep {
-    background: #1c1f36;
+    background: #24153D;
     box-shadow: 0 0 0 1px #ffffff;
 }
 
 .head .inStep {
-    background: #392A50;
+    background: #24153D;
     box-shadow: 0 0 10px 1px #ffffff;
     transition: 0.25s;
 }
 
 .head .uncompleteStep {
-    background: #392A50;
+    color: rgba(255, 255, 255, 0.5);
+    background: #24153D;
     box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.3);
 }
 
@@ -130,9 +124,6 @@
     width: calc(var(--movie-width) * 150 / 440);
     height: calc(var(--movie-width) * 50 / 440);
     border-radius: calc(var(--movie-width) * 25 / 440);
-    /* background: 
-        radial-gradient(100.04% 253.78% at 0% 0%, 
-        rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);   */
     color: white;
     top: auto;
     bottom: 0;
@@ -140,7 +131,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    /* transition: 0.25s; */
 }
 
 .enabled {
@@ -240,7 +230,6 @@
 
 .confirm {
     animation: confirm 0.5s 1 both;
-    /* transition: 3s; */
 }
 
 .confirm p {
@@ -269,8 +258,6 @@
 }
 
 .disabled
-
-/* ,.invalid */
     {
     background:
         radial-gradient(100.04% 253.78% at 0% 0%,

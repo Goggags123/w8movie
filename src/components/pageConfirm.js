@@ -25,7 +25,7 @@ export default class PageConfirm extends Component {
 			"December",
 		];
 		return (
-			<div className="pageC">
+			<div className={this.props.step==6?"pageC on":"pageC off"}>
 				<img id="movieSelectedPic" src={movie.picture} />
 				<div className="name">{movie.name}</div>
 				<div className="detail">

@@ -5,7 +5,7 @@ import soundtrack from "../images/soundtrack.png";
 
 export default class Page2 extends Component {
 	keptSound = (value) => {
-		if (value == "Subtitle" && this.props.movie.nationality == "Thai dub")
+		if (value == "Subtitle" && this.props.movie.nationality == "Thai")
 			this.props.kept("sound", value, false);
 		else this.props.kept("sound", value, true);
 	};
