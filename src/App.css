@@ -1,7 +1,7 @@
 :root {
   --dfa-width: 450px;
   --movie-width: 290px;
-  --movie-height: calc(var(--movie-width) * 90 / 44);
+  --movie-height: calc(var(--movie-width) * 80 / 44);
   --head-font: calc(var(--movie-width) * 20 / 440);
   --body-with: calc((var(--dfa-width) + var(--movie-width)));
 }
@@ -22,7 +22,7 @@ button {
 }
 
 
-.body {
+.body, body,.loading-body {
   position: relative;
   min-width: var(--body-with);
   min-height: var(--movie-height);
@@ -35,9 +35,12 @@ button {
   background: -ms-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
   background: -o-linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
   background: linear-gradient(180deg, #23103A 7.23%, #282D4F 100%);
-  /* background-attachment: fixed; */
   display: flex;
   flex-direction: column;
+}
+
+.loading-body{  
+  flex-direction: row;
 }
 
 .ellipse1 {
@@ -50,7 +53,6 @@ button {
   background: rgba(160, 32, 76, 0.8);
   -webkit-filter: blur(7rem);
   filter: blur(7rem);
-  /* z-index: -1; */
 }
 
 .ellipse2 {
@@ -63,20 +65,18 @@ button {
   background: rgba(255, 108, 0, 0.8);
   -webkit-filter: blur(5rem);
   filter: blur(5rem);
-  /* z-index: -2; */
 }
 
 .ellipse3 {
   position: absolute;
-  width: 30vw;
-  height: 30vw;
+  width: 40vw;
+  height: 40vw;
   border-radius: 100%;
-  top: 60vh;
+  top: 80vh;
   right: 10vw;
   background: #A0204C;
   -webkit-filter: blur(3rem);
   filter: blur(3rem);
-  /* z-index: -1; */
 
 }
 
@@ -104,10 +104,10 @@ p.title {
 }
 
 div.dfa {
-  /* background: #a1536e; */
   min-width: var(--dfa-width);
   width: calc(100% - var(--movie-width) - 2%);
-  height: var(--movie-height);
+  min-height: var(--movie-height);
+  height: 90%;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -117,13 +117,11 @@ div.dfa {
 div.container {
   width: 100%;
   color:white;
-  /* background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.49) 0%, rgba(255, 255, 255, 0.07) 100%); */
   border: 0.01rem solid rgba(255, 255, 255, 0.4);
   box-sizing: border-box;
   border-radius: 1rem;
   backdrop-filter: blur(3rem);
   padding: 0.75% 1% 0.75% 1%;  
-  /* height: 10%; */
   height: 3em;
   display: flex;
   flex-direction: row;
@@ -134,7 +132,6 @@ div.container {
 }
 
 .container > :first-child {
-  /* background-color: red; */
   width: 3.5em;
   height: fit-content;
   margin-right: -0.5em;
@@ -143,7 +140,6 @@ div.container {
 
 .text {
   position: relative;
-  /* background-color: red; */
   color: white;
   font-style: normal;
   font-size: 1rem;
@@ -155,6 +151,10 @@ div.container {
   padding: 0.5em 0;
   overflow-x: scroll;
   overflow-y: hidden;
+  -webkit-mask-image: linear-gradient(to left ,rgb(255, 255, 255) 99%, rgba(255, 255, 255, 0) 100%), linear-gradient(to right, rgba(0,0,0,1) 99%, rgba(0,0,0,0) 100%);
+  -webkit-mask-size: 50% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: left, right;
 }
 
 .text::-webkit-scrollbar {
@@ -209,32 +209,20 @@ div.container {
 
 .panel:hover ::-webkit-scrollbar-thumb {
   visibility: visible;
-  background-color: rgba(255, 255, 255, 0.548);
+  background-color: rgba(255, 255, 255, 0.37);
 }
 .panel:hover ::-webkit-scrollbar-corner{
   visibility: visible;
   background: rgba(255, 255, 255, 0.137);
 }
-/* .layout {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
-  min-width: calc(5% + 20px + var(--dfa-width) + var(--movie-width));
-  width: 95%;
-  padding: 0 2.5%;
-} */
 
 .allContainer {
-  /* background: red; */
   display: flex;
   flex-direction: row;
   height: 92%;
-  /* overflow: hidden; */
   width: 100%;
   justify-content: center;
   align-items: center;
-  /* transform: translateY(4%); */
 }
 
 .inputComponent {
@@ -242,7 +230,6 @@ div.container {
   height: 1em;
   margin-left: 0.5em;
   border-radius: 1em;
-  /* background:#ff3d81; */
   display: flex;
   flex-direction: row;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -256,4 +243,12 @@ div.container {
   display: flex;
   flex-direction: row;
   transform: translateY(3.5px);
+  padding-right: 1em;
+}
+
+* {
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

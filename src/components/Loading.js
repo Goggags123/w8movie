@@ -6,7 +6,7 @@ export default function Loading() {
 	window.scrollTo(0, 0);
 	document.getElementsByTagName("body")[0].style.overflowY = "hidden";
 	return (
-		<div className="loading body">
+		<div className="loading loading-body">
 			<p>l</p>
 			<p>o</p>
 			<p>a</p>
