@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 
 import * as go from "gojs";
 import { ReactDiagram } from "gojs-react";
@@ -25,7 +25,6 @@ function initDiagram() {
 		model: $(go.GraphLinksModel, {
 			linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
 		}),
-		
 	});
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);

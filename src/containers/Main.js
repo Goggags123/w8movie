@@ -12,16 +12,11 @@ export default function Main() {
 	let [toggle, setToggle] = useState(true);
 	let [isLoading, setLoading] = useState(true);
 	let [currentState, setState] = useState(0);
-
-	
-
 	useEffect(() => {		
 		var lastInput = document.getElementById("input");
 		if (lastInput) lastInput.scroll({left: lastInput.scrollWidth ,behavior: 'smooth' });
 			{console.log(lastInput.scrollWidth)}
 	}, [input]);
-
-
 	return (
 		<Fragment>
 			

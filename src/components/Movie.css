@@ -173,7 +173,7 @@
 .page>div,
 .page2>div,
 .page3>div,
-.page4>div{
+.page4>div {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
