@@ -13,7 +13,7 @@ export default function Credit({ show, isShown }) {
 		{
 			src: engProfile,
 			alt: "Eng's profile",
-			name: "ฐนดล อารีพิทักษ์",
+			name: "ฐณดล อารีพิทักษ์",
 			id: "61010265",
 			url: "https://github.com/EnglyME",
 		},
