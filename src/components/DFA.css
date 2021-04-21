@@ -59,6 +59,9 @@
 
 .panel {
     position:relative;
-    /* height: 30rem; */
     height: calc(100% - 3em - 2%);
+}
+
+.not-focus:focus {
+    outline: 0;
 }

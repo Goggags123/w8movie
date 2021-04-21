@@ -259,13 +259,11 @@ div.credit-container {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.25s linear;
-  display: block;
 
 }
 
 .hidden {
   visibility: hidden;
-  display: none;
   opacity: 0;
   transition: visibility 0s 0.25s, opacity 0.25s linear;
 }

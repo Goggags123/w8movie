@@ -296,6 +296,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 		<Fragment>
 			<div className="panel">
 				<ReactDiagram
+					className = "not-focus"
 					initDiagram={initDiagram}
 					divClassName="diagram-component"
 					nodeDataArray={nodeDataArray}

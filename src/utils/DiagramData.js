@@ -708,7 +708,7 @@ export let linkDataArray = [
 	{
 		from: 11,
 		to: 10,
-		label: "Afternooon",
+		label: "Afternoon",
 		fromSpot: "TopSide",
 		toSpot: "BottomSide",
 		segmentIndex: -1,
