@@ -179,11 +179,10 @@ export default class Movie extends Component {
 			);
 	};
 
-	kept = (state, value, boolean) => {
-		if(this.state.confirmed)return;
+	kept = (state, value, boolean) => {		
 		this.setState({ str: this.state.str + value });
 		if (state == "movie") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({
 					movie: value,
 					sound: "",
@@ -201,7 +200,7 @@ export default class Movie extends Component {
 			);
 			this.props.setInput([...this.props.input, movieinfo[value].title]);
 		} else if (state == "sound") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({
 					sound: value,
 					time: "",
@@ -214,26 +213,26 @@ export default class Movie extends Component {
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "time") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({ time: value, seat: "", popcorn: "", cola: "" });
 			this.props.setState(
 				transition(this.props.currentState, value, this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "seat") {
-			if (boolean) this.setState({ seat: value, popcorn: "", cola: "" });
+			if (boolean && !this.state.confirmed) this.setState({ seat: value, popcorn: "", cola: "" });
 			this.props.setState(
 				transition(this.props.currentState, "Seat", this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "popcorn") {
-			this.setState({ popcorn: value });
+			if(!this.state.confirmed)this.setState({ popcorn: value });
 			this.props.setState(
 				transition(this.props.currentState, "Add-on", this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, "popcorn"]);
 		} else if (state == "cola") {
-			this.setState({ cola: value });
+			if(!this.state.confirmed)this.setState({ cola: value });
 			this.props.setState(
 				transition(this.props.currentState, "Add-on", this.props.toggle)
 			);
