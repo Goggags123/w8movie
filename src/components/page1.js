@@ -13,8 +13,8 @@ export default class Page1 extends Component {
                 id={"movie"+(i+1)}
                 className={this.props.movie==i?"selected movieInfo":"movieInfo"}
                 onClick={()=>this.props.kept("movie",i,true)}
-                onMouseEnter = {() => {window.highlightPart(this.props.currentState,movieinfo[i].nationality == "Thai" ? movieinfo[i].title:movieinfo[i].name,false)}}
-                onMouseLeave = {() => {window.highlightPart(this.props.currentState,movieinfo[i].nationality == "Thai" ? movieinfo[i].title:movieinfo[i].name,true)}}
+                onMouseEnter = {() => {window.highlightPart(this.props.currentState,movieinfo[i].nationality == "Thai" ? movieinfo[i].title:movieinfo[i].name,false,this.props.toggle)}}
+                onMouseLeave = {() => {window.highlightPart(this.props.currentState,movieinfo[i].nationality == "Thai" ? movieinfo[i].title:movieinfo[i].name,true,this.props.toggle)}}
               >
                 <img
                   className="moviePicInfo"

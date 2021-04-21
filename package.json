@@ -11,8 +11,9 @@
     "gojs-react": "^1.0.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
-    "react-scroll": "^1.8.2",
+    "react-tilty": "^2.0.3",
     "web-vitals": "^1.1.0",
     "xstate": "^4.17.1"
   },

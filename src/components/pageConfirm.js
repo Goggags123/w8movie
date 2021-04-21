@@ -65,10 +65,10 @@ export default class PageConfirm extends Component {
 						className={info.popcorn ? "added" : "addOn"}
 						onClick={() => this.props.kept("popcorn", !info.popcorn)}
 						onMouseEnter={() => {
-							window.highlightPart(this.props.currentState, "Popcorn", false);
+							window.highlightPart(this.props.currentState, "Popcorn", false,this.props.toggle);
 						}}
 						onMouseLeave={() => {
-							window.highlightPart(this.props.currentState, "Popcorn", true);
+							window.highlightPart(this.props.currentState, "Popcorn", true,this.props.toggle);
 						}}
 					>
 						{!info.popcorn ? <img src={popcorn} /> : <img src={popcornS} />}
@@ -79,10 +79,10 @@ export default class PageConfirm extends Component {
 						className={info.cola ? "added" : "addOn"}
 						onClick={() => this.props.kept("cola", !info.cola)}
                         onMouseEnter={() => {
-                            window.highlightPart(this.props.currentState, "Cola", false);
+                            window.highlightPart(this.props.currentState, "Cola", false,this.props.toggle);
                         }}
                         onMouseLeave={() => {
-                            window.highlightPart(this.props.currentState, "Cola", true);
+                            window.highlightPart(this.props.currentState, "Cola", true,this.props.toggle);
                         }}
 					>
 						{!info.cola ? <img src={cola} /> : <img src={colaS} />}
