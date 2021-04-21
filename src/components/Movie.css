@@ -72,10 +72,10 @@
     content: "";
     position: absolute;
     z-index: -1;
-    width: 25%;
+    width: 12%;
     height: 1.5px;
-    transform: translateY(calc(var(--movie-width) * 14 / 440));
-    background: rgba(255, 255, 255, 0.452);
+    transform: translate(30%,calc(var(--movie-width) * 14 / 440));
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .head li:last-child::after {
@@ -88,20 +88,17 @@
 
 
 .head .completeStep {
-    background: #24153D;
-    box-shadow: 0 0 0 1px #ffffff;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 2px 2px 10px 1px #1e162bb9;
 }
 
 .head .inStep {
-    background: #24153D;
     box-shadow: 0 0 10px 1px #ffffff;
     transition: 0.25s;
 }
 
 .head .uncompleteStep {
-    color: rgba(255, 255, 255, 0.5);
-    background: #24153D;
-    box-shadow: 0 0 0 1px rgb(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 2px rgb(255, 255, 255, 0.3);
 }
 
 .disabled {
@@ -116,6 +113,28 @@
     right: 5%;
 }
 
+.reset {
+    right: 5%;
+    left: 5%;
+    margin: auto;
+    width: fit-content;
+    position: absolute;
+    cursor: pointer;
+    width: calc(var(--movie-width) * 50 / 440);
+    height: calc(var(--movie-width) * 50 / 440);
+    border-radius: calc(var(--movie-width) * 25 / 440);
+    top: auto;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset img{
+ height: 40%;
+ opacity: 0.7;
+}
 
 .right,
 .left {
@@ -134,11 +153,12 @@
 }
 
 .enabled {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+    box-shadow: 2px 2px 10px 1px #1e162b3f;
 }
 
 .enabled:hover {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255) inset;
+    background: radial-gradient(100.04% 253.78% at 0% 0%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.25) 100%);
 }
 
 .page,
@@ -240,7 +260,7 @@
 .right img {
     width: 20%;
     opacity: 0.7;
-    transition: 0.5s;
+    /* transition: 0.5s; */
 }
 
 .enabled:hover img {
@@ -259,6 +279,7 @@
 
 .disabled
     {
+    cursor: unset;
     background:
         radial-gradient(100.04% 253.78% at 0% 0%,
             rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.07) 100%);

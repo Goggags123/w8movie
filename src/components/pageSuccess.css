@@ -18,11 +18,17 @@
 @keyframes off {
     0%{
         transform: scale(1);
+        visibility: visible;
     }
     100%{
         transform: scale(0);
+        visibility: hidden;
     }
     
+}
+
+.pageS.off {    
+    visibility: hidden;
 }
 
 .pageS .off {

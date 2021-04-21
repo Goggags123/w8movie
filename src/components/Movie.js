@@ -23,7 +23,7 @@ const movieinfo = [
 		genre: "Romance, Fantasy",
 		duration: "129 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone, someone",
+		description: "Leading actor : Mario , Mhai",
 		title: "P'Mark"
 	},
 	{
@@ -33,7 +33,7 @@ const movieinfo = [
 		genre: "Adventure, Sci-fi",
 		duration: "105 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Jazz , Nick",
 		title: "P'Jazz"
 	},
 	{
@@ -43,17 +43,17 @@ const movieinfo = [
 		genre: "Adventure, Drama",
 		duration: "115 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Liu Yifei",
     	title: "Mulan"
 	},
 	{
 		name: "Parasite",
 		picture: parasite,
 		nationality: "Foreign",
-		genre: "Comedy",
+		genre: "Comedy, Triller",
 		duration: "132 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Woo-sik Choi",
     	title: "Parasite"
 	},
 ];
@@ -184,11 +184,10 @@ export default class Movie extends Component {
 			);
 	};
 
-	kept = (state, value, boolean) => {
-		if(this.state.confirmed)return;
+	kept = (state, value, boolean) => {		
 		this.setState({ str: this.state.str + value });
 		if (state == "movie") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({
 					movie: value,
 					sound: "",
@@ -206,7 +205,7 @@ export default class Movie extends Component {
 			);
 			this.props.setInput([...this.props.input, movieinfo[value].title]);
 		} else if (state == "sound") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({
 					sound: value,
 					time: "",
@@ -219,26 +218,26 @@ export default class Movie extends Component {
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "time") {
-			if (boolean)
+			if (boolean && !this.state.confirmed)
 				this.setState({ time: value, seat: "", popcorn: "", cola: "" });
 			this.props.setState(
 				transition(this.props.currentState, value, this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "seat") {
-			if (boolean) this.setState({ seat: value, popcorn: "", cola: "" });
+			if (boolean && !this.state.confirmed) this.setState({ seat: value, popcorn: "", cola: "" });
 			this.props.setState(
 				transition(this.props.currentState, "Seat", this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, value]);
 		} else if (state == "popcorn") {
-			this.setState({ popcorn: value });
+			if(!this.state.confirmed)this.setState({ popcorn: value });
 			this.props.setState(
 				transition(this.props.currentState, "Add-on", this.props.toggle)
 			);
 			this.props.setInput([...this.props.input, "popcorn"]);
 		} else if (state == "cola") {
-			this.setState({ cola: value });
+			if(!this.state.confirmed)this.setState({ cola: value });
 			this.props.setState(
 				transition(this.props.currentState, "Add-on", this.props.toggle)
 			);
@@ -253,16 +252,6 @@ export default class Movie extends Component {
 	};
 
 	reset = () => {
-		// this.setState({
-		// 	time: "",
-		// 	seat: "",
-		// 	sound: "",
-		// 	cola: false,
-		// 	popcorn: false,
-		// 	movie: -1,
-		// 	step: 1,
-		// 	right: false,
-		// });
 		window.location.reload(false);
 	};
 
@@ -324,7 +313,7 @@ export default class Movie extends Component {
 							? this.state.ok?"enabled right":"disabled right"
 							: "enabled right"
 					}
-					onClick={this.state.ok?this.reset:this.checkRight() ? this.goRight : null}
+					onClick={this.state.ok && this.state.step>4?this.reset:this.checkRight() ? this.goRight : null}
 					onMouseEnter={() => {
 						if (this.state.step == 5)
 							window.highlightPart(this.props.currentState, "Confirm", false,this.props.toggle);
@@ -334,9 +323,14 @@ export default class Movie extends Component {
 							window.highlightPart(this.props.currentState, "Confirm", true,this.props.toggle);
 					}}
 				>
-					{this.state.ok? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
+					{this.state.ok && this.state.step>4? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
 				</div>
-				:
+				{
+					this.state.ok && this.state.step>4?"":
+					<div className = {this.state.str==""?"disabled reset":"enabled reset"} onClick={this.state.str==""?{}:this.reset}>
+						<img src={resetImg}/>
+					</div>
+				}
 				{this.state.step>5 ? <PageSuccess step={this.state.step} next={()=>this.setState({step:this.state.step+1,ok:true})}/>:""}
 			</div>
 		);

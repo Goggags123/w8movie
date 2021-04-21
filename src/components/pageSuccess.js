@@ -5,7 +5,7 @@ import successImg from "../images/success.png";
 export default class PageSuccess extends Component {
 	render() {
 		return (
-			<div className="pageS">
+			<div className={this.props.step==6?"pageS":"off pageS"}>
                 <div className={this.props.step==6?"on success":"off success"}>
                     <div>
                         <img src={successImg} />
