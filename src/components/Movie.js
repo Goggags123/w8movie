@@ -248,16 +248,6 @@ export default class Movie extends Component {
 	};
 
 	reset = () => {
-		// this.setState({
-		// 	time: "",
-		// 	seat: "",
-		// 	sound: "",
-		// 	cola: false,
-		// 	popcorn: false,
-		// 	movie: -1,
-		// 	step: 1,
-		// 	right: false,
-		// });
 		window.location.reload(false);
 	};
 
@@ -319,7 +309,7 @@ export default class Movie extends Component {
 							? this.state.ok?"enabled right":"disabled right"
 							: "enabled right"
 					}
-					onClick={this.state.ok?this.reset:this.checkRight() ? this.goRight : null}
+					onClick={this.state.ok && this.state.step>4?this.reset:this.checkRight() ? this.goRight : null}
 					onMouseEnter={() => {
 						if (this.state.step == 5)
 							window.highlightPart(this.props.currentState, "Honeymoon", false);
@@ -329,9 +319,14 @@ export default class Movie extends Component {
 							window.highlightPart(this.props.currentState, "Honeymoon", true);
 					}}
 				>
-					{this.state.ok? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
+					{this.state.ok && this.state.step>4? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
 				</div>
-				:
+				{
+					this.state.ok && this.state.step>4?"":
+					<div className = {this.state.str==""?"disabled reset":"enabled reset"} onClick={this.state.str==""?{}:this.reset}>
+						<img src={resetImg}/>
+					</div>
+				}
 				{this.state.step>5 ? <PageSuccess step={this.state.step} next={()=>this.setState({step:this.state.step+1,ok:true})}/>:""}
 			</div>
 		);
