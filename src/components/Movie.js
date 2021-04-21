@@ -13,7 +13,6 @@ import PageSuccess from "./pageSuccess.js";
 import next from "../images/next.png";
 import back from "../images/back.png";
 import { transition } from "../utils/Machine";
-import { filter } from "minimatch";
 import resetImg from "../images/reset.png";
 const movieinfo = [
 	{

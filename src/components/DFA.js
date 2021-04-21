@@ -182,6 +182,7 @@ function initDiagram() {
 		}
 	};
 	window.highlight = (currentState) => {
+		//Highlight node
 		diagram.nodes.each(function (node) {
 			node.shadowVisible = false;
 			if (node.key != currentState) return;
@@ -189,7 +190,7 @@ function initDiagram() {
 			node.shadowVisible = true;
 		});
 	};
-	window.highlightPart = (currentState, to, unHighlight,toggle) => {
+	window.highlightPart = (currentState, to, unHighlight, toggle) => {
 		//Highlight link
 		if ("ontouchstart" in document.documentElement) return;
 		diagram.links.each(function (link) {
@@ -296,7 +297,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 		<Fragment>
 			<div className="panel">
 				<ReactDiagram
-					className = "not-focus"
+					className="not-focus"
 					initDiagram={initDiagram}
 					divClassName="diagram-component"
 					nodeDataArray={nodeDataArray}
@@ -306,7 +307,7 @@ export default function DFA({ toggle, currentState, setLoading, setToggle }) {
 					<div
 						className="alternate"
 						onClick={() => {
-							window.stopAnimation(isStopped, currentState,toggle);
+							window.stopAnimation(isStopped, currentState, toggle);
 							setStop(!isStopped);
 						}}
 					>

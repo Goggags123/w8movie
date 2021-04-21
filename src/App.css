@@ -144,6 +144,10 @@ div.container {
   -webkit-mask-size: 50% 100%;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: left, right;
+  mask-image: linear-gradient(to left ,rgb(255, 255, 255) 99%, rgba(255, 255, 255, 0) 100%), linear-gradient(to right, rgba(0,0,0,1) 99%, rgba(0,0,0,0) 100%);
+  mask-size: 50% 100%;
+  mask-repeat: no-repeat;
+  mask-position: left, right;
 }
 
 .text::-webkit-scrollbar {

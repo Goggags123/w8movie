@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import DFA from "../components/DFA";
-import Ellipse from "../components/Ellipse";
-import Navbar from "../components/Navbar";
 import Movie from "../components/Movie";
-import Loading from "../components/Loading";
-import resetImg from "../images/reset.png";
 export default function Main({ isLoading, setLoading }) {
-	let [input, setInput] = useState([]);
-	let [toggle, setToggle] = useState(true);
-	let [currentState, setState] = useState(0);
-	useEffect(() => {		
+	let [input, setInput] = useState([]); //input
+	let [toggle, setToggle] = useState(true); //whether the showPath is active or not
+	let [currentState, setState] = useState(0); //dfa state
+	useEffect(() => {
 		var lastInput = document.getElementById("input");
-		if (lastInput) lastInput.scroll({left: lastInput.scrollWidth ,behavior: 'smooth' });
-			{console.log(lastInput.scrollWidth)}
+		if (lastInput)
+			lastInput.scroll({ left: lastInput.scrollWidth, behavior: "smooth" });
 	}, [input]);
 	return (
 		<div className="allContainer">
 			<div className="dfa">
 				<div className="container">
 					<p>{"Input : "}</p>
-					<div className="text" id = "input">
+					<div className="text" id="input">
 						<div className="allInput">
 							{input.map((a, i) => {
 								return (
@@ -59,5 +55,4 @@ export default function Main({ isLoading, setLoading }) {
 			/>
 		</div>
 	);
-
 }
