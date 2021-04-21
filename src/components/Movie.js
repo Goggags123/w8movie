@@ -23,7 +23,7 @@ const movieinfo = [
 		genre: "Romance, Fantasy",
 		duration: "129 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone, someone",
+		description: "Leading actor : Mario , Mhai",
 		title: "P'Mark"
 	},
 	{
@@ -33,7 +33,7 @@ const movieinfo = [
 		genre: "Adventure, Sci-fi",
 		duration: "105 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Jazz , Nick",
 		title: "P'Jazz"
 	},
 	{
@@ -43,17 +43,17 @@ const movieinfo = [
 		genre: "Adventure, Drama",
 		duration: "115 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Liu Yifei",
     	title: "Mulan"
 	},
 	{
 		name: "Parasite",
 		picture: parasite,
 		nationality: "Foreign",
-		genre: "Comedy",
+		genre: "Comedy, Triller",
 		duration: "132 minutes",
 		date: "March 4, 2021",
-		description: "Leading actor : someone , someone",
+		description: "Leading actor : Woo-sik Choi",
     	title: "Parasite"
 	},
 ];

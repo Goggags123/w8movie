@@ -26,7 +26,6 @@ export default function Main() {
 				<Ellipse className="ellipse3" />
 				<Ellipse className="ellipse4" />
 				{isLoading ? <Loading /> : <Navbar />}
-				<Navbar/>
 				<div className="allContainer">
 					<div className="dfa">
 						<div className="container">
