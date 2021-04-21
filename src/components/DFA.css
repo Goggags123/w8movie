@@ -8,7 +8,11 @@
     border-radius: 1rem;
     overflow: hidden;
     backdrop-filter: blur(3rem);
-    box-shadow: 2px 2px 20px 1px #1e162b73 ;
+    box-shadow: 2px 2px 20px 1px #1e162b73;
+}
+
+.diagram-component>canvas:focus {
+    outline: 0;
 }
 
 .bottom-group {
@@ -50,7 +54,8 @@
     margin: 0 0 30% 0;
 }
 
-.zoom img, .alternate img {
+.zoom img,
+.alternate img {
     width: 100%;
     user-select: none;
     -moz-user-select: none;
@@ -58,10 +63,6 @@
 }
 
 .panel {
-    position:relative;
+    position: relative;
     height: calc(100% - 3em - 2%);
-}
-
-.not-focus:focus {
-    outline: 0;
 }
