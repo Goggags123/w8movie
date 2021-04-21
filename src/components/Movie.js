@@ -50,7 +50,7 @@ const movieinfo = [
 		name: "Parasite",
 		picture: parasite,
 		nationality: "Foreign",
-		genre: "Comedy, Triller",
+		genre: "Comedy, Thriller",
 		duration: "132 minutes",
 		date: "March 4, 2021",
 		description: "Leading actor : Woo-sik Choi",
