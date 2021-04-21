@@ -327,11 +327,11 @@ export default class Movie extends Component {
 					onClick={this.state.ok?this.reset:this.checkRight() ? this.goRight : null}
 					onMouseEnter={() => {
 						if (this.state.step == 5)
-							window.highlightPart(this.props.currentState, "Honeymoon", false,this.props.toggle);
+							window.highlightPart(this.props.currentState, "Confirm", false,this.props.toggle);
 					}}
 					onMouseLeave={() => {
 						if (this.state.step == 5)
-							window.highlightPart(this.props.currentState, "Honeymoon", true,this.props.toggle);
+							window.highlightPart(this.props.currentState, "Confirm", true,this.props.toggle);
 					}}
 				>
 					{this.state.ok? <img src={resetImg}/> :this.state.step == 5 && !this.state.confirmed ? <p>Confirm</p> : <img src={next} />}
