@@ -257,7 +257,7 @@ export default class Movie extends Component {
 	render() {
 		return (
 			<div className="movie">
-				<ul className="head" style={this.state.step==6?{opacity:"0.2",transition:"0.1s"}:{}}>
+				<ul className="head" style={this.state.step==6?{opacity:"0.2",transition:"0.1s"}:null}>
 					<li className={this.state.step == 1 ? "inStep" : "completeStep"}></li>
 					<li
 						className={
@@ -296,7 +296,7 @@ export default class Movie extends Component {
 						}
 					></li>
 				</ul>
-				<div id="title" style={this.state.step==6?{opacity:"0.2",transition:"0.1s"}:{}}>{this.stepDescription()}</div>
+				<div id="title" style={this.state.step==6?{opacity:"0.2",transition:"0.1s"}:null}>{this.stepDescription()}</div>
 				{this.getPage(this.props.toggle)}
 				<div
 					className={this.state.step == 1 || (this.state.step==6&&!this.state.ok)? "disabled left" : "enabled left"}
@@ -326,7 +326,7 @@ export default class Movie extends Component {
 				</div>
 				{
 					this.state.ok && this.state.step>4?"":
-					<div className = {this.state.str==""?"disabled reset":"enabled reset"} onClick={this.state.str==""?{}:this.reset}>
+					<div className = {this.state.str==""?"disabled reset":"enabled reset"} onClick={this.state.str==""?null:this.reset}>
 						<img src={resetImg}/>
 					</div>
 				}
