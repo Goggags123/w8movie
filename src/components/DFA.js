@@ -13,7 +13,7 @@ import showPath from "../images/eye-closed.png";
 import play from "../images/play.png";
 import pause from "../images/pause.png";
 
-import { createBurst, freeArray } from "../utils/Geonometry";
+import { createBurst, freeArray, GeneratorEllipseSpot1, GeneratorEllipseSpot2 } from "../utils/Geonometry";
 import { nodeDataArray, linkDataArray } from "../utils/DiagramData";
 
 function initDiagram() {
@@ -25,6 +25,40 @@ function initDiagram() {
 		model: $(go.GraphLinksModel, {
 			linkKeyProperty: "key", // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
 		}),
+	});
+
+	go.Shape.defineFigureGenerator("Ring", function (shape, w, h) {
+		var param1 = shape ? shape.parameter1 : NaN;
+		if (isNaN(param1) || param1 < 0) param1 = 8;
+
+		var rad = w / 2;
+		var geo = new go.Geometry();
+		var fig = new go.PathFigure(w, w / 2, true); // clockwise
+		geo.add(fig);
+		fig.add(
+			new go.PathSegment(go.PathSegment.Arc, 0, 360, rad, rad, rad, rad).close()
+		);
+
+		var rad2 = Math.max(rad - param1, 0);
+		if (rad2 > 0) {
+			// counter-clockwise
+			fig.add(new go.PathSegment(go.PathSegment.Move, w / 2 + rad2, w / 2));
+			fig.add(
+				new go.PathSegment(
+					go.PathSegment.Arc,
+					0,
+					-360,
+					rad,
+					rad,
+					rad2,
+					rad2
+				).close()
+			);
+		}
+		geo.spot1 = GeneratorEllipseSpot1;
+		geo.spot2 = GeneratorEllipseSpot2;
+		geo.defaultStretch = go.GraphObject.Uniform;
+		return geo;
 	});
 	go.Shape.defineFigureGenerator("TenPointedBurst", function (shape, w, h) {
 		var burstPoints = createBurst(10);
@@ -78,7 +112,10 @@ function initDiagram() {
 					strokeWidth: 3,
 					desiredSize: new go.Size(70, 70),
 				},
-				new go.Binding("fill", "color")
+				new go.Binding("fill", "color"),
+				new go.Binding("figure", "shape"),				
+				new go.Binding("desiredSize", "size"),		
+				new go.Binding("stroke")
 			)
 		),
 		$(
@@ -271,6 +308,9 @@ function initDiagram() {
 			window.scrollTo(0, 0);
 			document.getElementsByTagName("body")[0].style.overflowY = "visible";
 			document.getElementsByTagName("body")[0].style.height = "100vh";
+			// diagram.findNodeForKey("201").position = diagram.findNodeForKey(
+			// 	"200"
+			// ).position;
 			setTimeout(() => {
 				window.setLoading(false);
 				window.start();
@@ -278,6 +318,25 @@ function initDiagram() {
 		}
 		count += 1;
 	});
+	// diagram.model.addNodeData(
+	// 	// $(
+	// 	// 	go.Panel,
+	// 	// 	"Spot",
+	// 	// 	$(
+	// 	// 		go.Shape,
+	// 	// 		"Circle",
+	// 	// 		{
+	// 	// 			fill: "red",
+	// 	// 			stroke: "red",
+	// 	// 			strokeWidth: 5,
+	// 	// 			desiredSize: new go.Size(70, 70),
+	// 	// 		},
+	// 	// 		new go.Binding("fill", "color")
+	// 	// 	)
+	// 	// ),
+	// 	{ key: 201, text: "gfhfg",Shape:"Square",fill:"red" }
+	// );
+	// diagram.model.addLinkData({ from:0,to:201 });
 	return diagram;
 }
 

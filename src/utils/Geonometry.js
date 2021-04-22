@@ -1,5 +1,9 @@
 import * as go from "gojs";
 var _CachedArrays = [];
+
+export var GeneratorEllipseSpot1 = new go.Spot(0.156, 0.156);
+export var GeneratorEllipseSpot2 = new go.Spot(0.844, 0.844);
+
 export function freeArray(a) {
 	a.length = 0; // clear any references to objects
 	_CachedArrays.push(a);
@@ -9,7 +13,17 @@ export function tempArray() {
 	if (temp === undefined) return [];
 	return temp;
 }
-export function getIntersection(p1x, p1y, p2x, p2y, q1x, q1y, q2x, q2y, result) {
+export function getIntersection(
+	p1x,
+	p1y,
+	p2x,
+	p2y,
+	q1x,
+	q1y,
+	q2x,
+	q2y,
+	result
+) {
 	var dx1 = p1x - p2x;
 	var dx2 = q1x - q2x;
 	var x;

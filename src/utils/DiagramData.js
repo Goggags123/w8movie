@@ -106,9 +106,18 @@ export let nodeDataArray = [
 		font: "Normal 0.70rem Roboto",
 	},
 	{
+		key: 201, //dummy
+		text: "",
+		color: "#FF6C00",
+		loc: `${layerSpacing * 6 + 8} ${nodeSpacing * 3 + 8}`,
+		size: new go.Size(53, 53),
+		stroke:"transparent"
+	},
+	{
 		key: 200,
 		text: "Confirm",
-		color: "#FF6C00",
+		color: "transparent",
+		shape: "Ring",
 		loc: `${layerSpacing * 6} ${nodeSpacing * 3}`,
 	},
 	{
@@ -164,7 +173,7 @@ export let linkDataArray = [
 		fromSpot: "LeftSide",
 		toSpot: "LeftSide",
 		fromEndSegmentLength: 50,
-		offset: new go.Point(-20,-10),
+		offset: new go.Point(-20, -10),
 	},
 	{
 		from: 1,
@@ -172,13 +181,14 @@ export let linkDataArray = [
 		label: "Thai dub",
 		fromSpot: "RightSide",
 		toSpot: "LeftSide",
-		offset: new go.Point(-20,-10),
+		offset: new go.Point(-20, -10),
 	},
 	////////////////////////////////////////(2) Foreign//////////////////////////////////////////
 	{
 		from: 2,
 		to: 2,
-		label: "Mulan, Parasite,\nMorning, Afternoon,\nEvening, Normal,\nHoneymoon, Popcorn,\nCola, Confirm",
+		label:
+			"Mulan, Parasite,\nMorning, Afternoon,\nEvening, Normal,\nHoneymoon, Popcorn,\nCola, Confirm",
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
@@ -211,7 +221,8 @@ export let linkDataArray = [
 	{
 		from: 3,
 		to: 3,
-		label: "Thai dub, Subtitle,\nMorning, Normal,\nHoneymoon, Popcorn,\nCola, Confirm",
+		label:
+			"Thai dub, Subtitle,\nMorning, Normal,\nHoneymoon, Popcorn,\nCola, Confirm",
 		routing: "curve",
 		fromSpot: topRight,
 		toSpot: topLeft,
